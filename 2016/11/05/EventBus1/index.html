@@ -8,26 +8,29 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>来不及解释了，快上车之EventBus3.0快速上手 | JellyCai的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="快速教你上手EventBus3.0,在EventBus3.0之前用法不同，就不在这里说了。准备工作，建立EventBus3.0的依赖:compile &amp;#39;org.greenrobot:eventbus:3.0.0&amp;#39;
-基本使用1.在需要订阅的组件内注册事件：
+  <meta name="description" content="快速教你上手EventBus3.0,在EventBus3.0之前用法不同，就不在这里说了。准备工作，建立EventBus3.0的依赖:
+compile &amp;apos;org.greenrobot:eventbus:3.0.0&amp;apos;
+基本使用1.在需要订阅的组件内注册事件：`
 @Override
-protected void onCreate(Bundle savedInstanceState) {">
+protected void onCreate(Bundle savedInstanceState)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="来不及解释了，快上车之EventBus3.0快速上手">
 <meta property="og:url" content="http://yoursite.com/2016/11/05/EventBus1/index.html">
 <meta property="og:site_name" content="JellyCai的博客">
-<meta property="og:description" content="快速教你上手EventBus3.0,在EventBus3.0之前用法不同，就不在这里说了。准备工作，建立EventBus3.0的依赖:compile &amp;#39;org.greenrobot:eventbus:3.0.0&amp;#39;
-基本使用1.在需要订阅的组件内注册事件：
+<meta property="og:description" content="快速教你上手EventBus3.0,在EventBus3.0之前用法不同，就不在这里说了。准备工作，建立EventBus3.0的依赖:
+compile &amp;apos;org.greenrobot:eventbus:3.0.0&amp;apos;
+基本使用1.在需要订阅的组件内注册事件：`
 @Override
-protected void onCreate(Bundle savedInstanceState) {">
+protected void onCreate(Bundle savedInstanceState)">
 <meta property="og:image" content="http://i.imgur.com/NVXIxok.png">
-<meta property="og:updated_time" content="2016-11-05T14:41:00.161Z">
+<meta property="og:updated_time" content="2016-11-05T23:59:12.974Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="来不及解释了，快上车之EventBus3.0快速上手">
-<meta name="twitter:description" content="快速教你上手EventBus3.0,在EventBus3.0之前用法不同，就不在这里说了。准备工作，建立EventBus3.0的依赖:compile &amp;#39;org.greenrobot:eventbus:3.0.0&amp;#39;
-基本使用1.在需要订阅的组件内注册事件：
+<meta name="twitter:description" content="快速教你上手EventBus3.0,在EventBus3.0之前用法不同，就不在这里说了。准备工作，建立EventBus3.0的依赖:
+compile &amp;apos;org.greenrobot:eventbus:3.0.0&amp;apos;
+基本使用1.在需要订阅的组件内注册事件：`
 @Override
-protected void onCreate(Bundle savedInstanceState) {">
+protected void onCreate(Bundle savedInstanceState)">
 <meta name="twitter:image" content="http://i.imgur.com/NVXIxok.png">
   
   
@@ -157,8 +160,9 @@ protected void onCreate(Bundle savedInstanceState) {">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>快速教你上手EventBus3.0,在EventBus3.0之前用法不同，就不在这里说了。<br>准备工作，建立EventBus3.0的依赖:<br><code>compile &#39;org.greenrobot:eventbus:3.0.0&#39;</code></p>
-<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>1.在需要订阅的组件内注册事件：</p>
+        <p>快速教你上手EventBus3.0,在EventBus3.0之前用法不同，就不在这里说了。<br>准备工作，建立EventBus3.0的依赖:</p>
+<pre><code>compile &apos;org.greenrobot:eventbus:3.0.0&apos;
+</code></pre><h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>1.在需要订阅的组件内注册事件：<br>`</p>
 <pre><code>@Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -166,7 +170,7 @@ protected void onCreate(Bundle savedInstanceState) {
     message = (TextView) this.findViewById(R.id.message);
     EventBus.getDefault().register(this);
 }
-</code></pre><p>2.在结束的时候注销事件:</p>
+</code></pre><p>`<br>2.在结束的时候注销事件:</p>
 <pre><code>@Override
 protected void onDestroy() {
     super.onDestroy();
