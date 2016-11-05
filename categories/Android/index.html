@@ -147,17 +147,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>快速教你上手EventBus3.0,在EventBus3.0之前用法不同，就不在这里说了。<br>准备工作，建立EventBus3.0的依赖:</p>
-<pre><code>compile &apos;org.greenrobot:eventbus:3.0.0&apos;
-</code></pre><h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>1.在需要订阅的组件内注册事件：</p>
-<pre><code>@Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-    message = (TextView) this.findViewById(R.id.message);
-    EventBus.getDefault().register(this);
-}
-</code></pre><p>2.在结束的时候注销事件:</p>
+        <p>快速教你上手EventBus3.0,在EventBus3.0之前用法不同，就不在这里说了。<br>准备工作，建立EventBus3.0的依赖:<br><figure class="highlight plain"><figcaption><span>'org.greenrobot:eventbus:3.0.0'</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">### 基本使用</div><div class="line">1.在需要订阅的组件内注册事件：</div></pre></td></tr></table></figure></p>
+<p>@Override<br>protected void onCreate(Bundle savedInstanceState) {<br>    super.onCreate(savedInstanceState);<br>    setContentView(R.layout.activity_main);<br>    message = (TextView) this.findViewById(R.id.message);<br>    EventBus.getDefault().register(this);<br>}<br>```<br>2.在结束的时候注销事件:</p>
 <pre><code>@Override
 protected void onDestroy() {
     super.onDestroy();
