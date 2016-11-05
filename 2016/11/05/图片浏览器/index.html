@@ -27,7 +27,7 @@ compile &amp;apos;com.squa">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-f9786393e12e8deb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-ad84e37ecd53b8b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-4d3af5d46ac54012.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-11-05T11:27:15.061Z">
+<meta property="og:updated_time" content="2016-11-05T11:31:23.871Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android利用Picasso+PhotoView+ViewPager的图片浏览器">
 <meta name="twitter:description" content="写一篇利用Picasso图片加载框架，PhotoView图片缩放控件以及ViewPager的图片浏览器
@@ -270,7 +270,7 @@ adapter.setItemClickListener(new OnRecyclerItemClickListener() {
 });
 rv.setAdapter(adapter);
 </code></pre><p>显示效果<br><img src="http://upload-images.jianshu.io/upload_images/2098384-f9786393e12e8deb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片展示.png"></p>
-<p>###图片浏览Activity<br>在上一Activity上传入需要显示的图片的集合和显示的Position</p>
+<h3 id="图片浏览Activity"><a href="#图片浏览Activity" class="headerlink" title="图片浏览Activity"></a>图片浏览Activity</h3><p>在上一Activity上传入需要显示的图片的集合和显示的Position</p>
 <pre><code>public static void startActivity(Context context, ArrayList&lt;String&gt; images, int position){
     Intent intent = new Intent(context,ImageBrowseActivity.class);
     intent.putStringArrayListExtra(&quot;images&quot;,images);
@@ -498,7 +498,8 @@ public void onPageSelected(int position) {
             e.printStackTrace();
         }
         // 最后通知图库更新
-        view.getMyContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse(&quot;file://&quot; + file.getPath())));
+        view.getMyContext().sendBroadcast(
+            new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,Uri.parse(&quot;file://&quot; + file.getPath())));
     }
 
     @Override
@@ -537,16 +538,6 @@ public void onPageSelected(int position) {
 </article>
 
   
-<nav id="article-nav">
-  
-  
-    <a href="/2016/11/05/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
 
 
 

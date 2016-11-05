@@ -252,7 +252,7 @@ adapter.setItemClickListener(new OnRecyclerItemClickListener() {
 });
 rv.setAdapter(adapter);
 </code></pre><p>显示效果<br><img src="http://upload-images.jianshu.io/upload_images/2098384-f9786393e12e8deb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片展示.png"></p>
-<p>###图片浏览Activity<br>在上一Activity上传入需要显示的图片的集合和显示的Position</p>
+<h3 id="图片浏览Activity"><a href="#图片浏览Activity" class="headerlink" title="图片浏览Activity"></a>图片浏览Activity</h3><p>在上一Activity上传入需要显示的图片的集合和显示的Position</p>
 <pre><code>public static void startActivity(Context context, ArrayList&lt;String&gt; images, int position){
     Intent intent = new Intent(context,ImageBrowseActivity.class);
     intent.putStringArrayListExtra(&quot;images&quot;,images);
@@ -480,7 +480,8 @@ public void onPageSelected(int position) {
             e.printStackTrace();
         }
         // 最后通知图库更新
-        view.getMyContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse(&quot;file://&quot; + file.getPath())));
+        view.getMyContext().sendBroadcast(
+            new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,Uri.parse(&quot;file://&quot; + file.getPath())));
     }
 
     @Override
@@ -512,59 +513,6 @@ public void onPageSelected(int position) {
 	<a class="article-category-link" href="/categories/Android/">Android</a>
 	</div>
 
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/05/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/11/05/hello-world/" class="archive-article-date">
-  	<time datetime="2016-11-05T07:29:01.816Z" itemprop="datePublished"><i class="icon-clock"></i>Nov 5 2016</time>
-</a>
-      
-      
 
       <div class="clearfix"></div>
     </div>
