@@ -129,6 +129,259 @@
       <div class="body-wrap">
         
   
+    <article id="post-EventBus1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/05/EventBus1/">来不及解释了，快上车之EventBus3.0快速上手</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>快速教你上手EventBus3.0,在EventBus3.0之前用法不同，就不在这里说了。<br>准备工作，建立EventBus3.0的依赖:</p>
+<pre><code>compile &apos;org.greenrobot:eventbus:3.0.0&apos;
+</code></pre><h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>1.在需要订阅的组件内注册事件：</p>
+<pre><code>@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    message = (TextView) this.findViewById(R.id.message);
+    EventBus.getDefault().register(this);
+}
+</code></pre><p>2.在结束的时候注销事件:</p>
+<pre><code>@Override
+protected void onDestroy() {
+    super.onDestroy();
+    EventBus.getDefault().unregister(this);
+}
+</code></pre><p>3.定义接受事件的方法,可以看到下面代码的源注释，当需要定义接受方法的时候，就需要如此申明<br>，<strong>threadMode = ThreadMode.MAIN</strong>表示接受的方法发生的线程，其他线程指定的方式在<a href="http://www.jianshu.com/p/72f475ac3a8d" target="_blank" rel="external">下一章</a>具体解释。<br>注意：参数不支持基本数据类型，想用整型必须使用Integer：</p>
+<pre><code>@Subscribe(threadMode = ThreadMode.MAIN)
+public void onBus(String msg){
+    message.setText(msg);
+}
+</code></pre><p>4.发送事件参数，发送的参数不支持基本数据类型：    </p>
+<pre><code>public void oneView(View v){
+    EventBus.getDefault().post(&quot;开车了&quot;);
+}
+</code></pre><p>以上就是EventBus的基本使用了：下面介绍一下简单的用法：</p>
+<h3 id="用法一，同一组件内发送和接收事件"><a href="#用法一，同一组件内发送和接收事件" class="headerlink" title="用法一，同一组件内发送和接收事件"></a>用法一，同一组件内发送和接收事件</h3><pre><code>package com.jelly.eventbus;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+public class MainActivity extends AppCompatActivity {
+
+    private TextView message;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        message = (TextView) this.findViewById(R.id.message);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * 同一界面内传递字符串
+     * @param msg
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onBus(String msg){
+        message.setText(msg);
+    }
+
+
+    public void oneView(View v){
+        EventBus.getDefault().post(&quot;同一界面内点击&quot;);
+    }
+}
+</code></pre><p>在Activity的生命周期onCreate方法中注册事件，在onDestroy()方法中注销事件，写了一个在主线程中执行的接收事件的方法修改TextView的值，点击按钮是发送事件。</p>
+<h3 id="用法二，事件传递自定义的对象"><a href="#用法二，事件传递自定义的对象" class="headerlink" title="用法二，事件传递自定义的对象"></a>用法二，事件传递自定义的对象</h3><p>定义一个Bean</p>
+<pre><code>public class Message {
+    public String message;
+
+    public Message(String message) {
+        this.message = message;
+    }
+}
+</code></pre><p>事件接收和发送逻辑，在这里发送的是自定义的对象</p>
+<pre><code>package com.jelly.eventbus;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+public class MainActivity extends AppCompatActivity {
+
+    private TextView message;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        message = (TextView) this.findViewById(R.id.message);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * 传递对象
+     * @param msg
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onBus(Message msg){
+        message.setText(msg.message);
+    }
+
+    public void postObj(View v){
+        EventBus.getDefault().post(new Message(&quot;传递对象&quot;));
+    }
+}
+</code></pre><h3 id="用法三，在不同的组件之间发送和接收事件"><a href="#用法三，在不同的组件之间发送和接收事件" class="headerlink" title="用法三，在不同的组件之间发送和接收事件"></a>用法三，在不同的组件之间发送和接收事件</h3><p>接收事件的Activity</p>
+<pre><code>package com.jelly.eventbus;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        message = (TextView) this.findViewById(R.id.message);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * 不同组件之间传递数据
+     * @param i
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onBus(Integer i){
+        Log.v(&quot;bus&quot;,i+&quot;&quot;);
+    }
+
+    public void secondView(View v){
+        Intent intent = new Intent(this,SecondActivity.class);
+        startActivity(intent);
+    }
+
+}
+</code></pre><p>发送事件的Activity，刚开始写的时候在发送事件的Activity里面内也加上的注册和注销操作，然后运行失败，在发送事件的组件内不需要在注册和注销EventBus</p>
+<pre><code>package com.jelly.eventbus;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
+import org.greenrobot.eventbus.EventBus;
+
+/**
+ * Created by Jelly on 2016/9/27.
+ */
+
+public class SecondActivity extends Activity{
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.setContentView(R.layout.activity_second);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    public void twoCon(View view){
+        Log.v(&quot;bus&quot;,&quot;点击&quot;);
+        EventBus.getDefault().post(1);
+    }
+
+}
+</code></pre><p>在接收事件的Activity中启动发送事件的Activity，点击其中的按钮，打印的日志结果如下<br><img src="http://i.imgur.com/NVXIxok.png" alt="结果"><br>更多用法见<a href="http://www.jianshu.com/p/72f475ac3a8d" target="_blank" rel="external">来不及解释了，快上车之EventBus3.0更多实用使用</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/05/EventBus1/" class="archive-article-date">
+  	<time datetime="2016-11-05T14:14:11.000Z" itemprop="datePublished"><i class="icon-clock"></i>Nov 5 2016</time>
+</a>
+      
+      
+	<div class="article-category tagcloud">
+	<i class="icon-price-tags"></i>
+	<a class="article-category-link" href="/categories/Android/">Android</a>
+	</div>
+
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-图片浏览器" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
