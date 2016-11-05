@@ -129,6 +129,405 @@
       <div class="body-wrap">
         
   
+    <article id="post-图片浏览器" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/05/图片浏览器/">Android利用Picasso+PhotoView+ViewPager的图片浏览器 //在此处添加你的标题。</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>写一篇利用Picasso图片加载框架，PhotoView图片缩放控件以及ViewPager的图片浏览器</p>
+<p>###首先建立依赖：<br>在这里我们加入PhotoView和picasso的依赖</p>
+<pre><code>//PhotoView       
+compile &apos;com.github.chrisbanes.photoview:library:+&apos;
+//picasso
+compile &apos;com.squareup.picasso:picasso:+&apos;
+</code></pre><p>###然后我们写一个图片列表展示的首页<br>图片的展示页采用RecyclerView去展示,布局文件如下所示</p>
+<pre><code>&lt;android.support.v7.widget.RecyclerView
+    android:id=&quot;@+id/recyclerView&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;&gt;
+
+&lt;/android.support.v7.widget.RecyclerView&gt;
+</code></pre><p>加入数据，图片是从网上找的几张图片，加入数据集合中    </p>
+<pre><code>images.add(&quot;http://img3.imgtn.bdimg.com/it/u=3993672553,267575750&amp;fm=21&amp;gp=0.jpg&quot;);
+images.add(&quot;http://img5.imgtn.bdimg.com/it/u=2652905594,2769975769&amp;fm=21&amp;gp=0.jpg&quot;);
+images.add(&quot;http://i.zeze.com/attachment/forum/201511/06/180208mwwxx8oer7wirv89.jpg&quot;);
+images.add(&quot;http://imgsrc.baidu.com/forum/w%3D580/sign=fe8a7e7f78ec54e741ec1a1689399bfd/4b3f9682d158ccbfb334467b1ad8bc3eb33541cd.jpg&quot;);
+images.add(&quot;http://static.wgpet.com/editor/attached/image/20141124/20141124225933_71813.jpg&quot;);
+images.add(&quot;http://v1.qzone.cc/pic/201405/25/13/57/5381864e3b8af886.jpg%21600x600.jpg&quot;);
+images.add(&quot;http://wanzao2.b0.upaiyun.com/system/pictures/23660313/original/8d4f08e50be02ae3.png&quot;);
+images.add(&quot;http://zyline-photo.qiniudn.com/1392705051156.jpg&quot;);
+</code></pre><p>为RecyclerView创建Adapter，在ViewHolder中加入列表的点击事件</p>
+<pre><code>package com.jelly.imagebrowse.adapter;    
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.jelly.imagebrowse.R;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
+/**
+ *  图片列表适配器
+ * Created by Jelly on 2016/9/3.
+ */
+public class ImageRecyclerAdapter extends RecyclerView.Adapter&lt;ImageRecyclerAdapter.ImageHolder&gt;{
+
+private List&lt;String&gt; dataList;
+private Context context;
+private LayoutInflater inflater;
+private OnRecyclerItemClickListener itemClickListener;
+
+public ImageRecyclerAdapter(Context context,List&lt;String&gt; dataList) {
+    this.context = context;
+    this.dataList = dataList;
+    inflater = LayoutInflater.from(context);
+}
+
+@Override
+public int getItemCount() {
+    return dataList.size();
+}
+
+@Override
+public ImageHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    return new ImageHolder(inflater.inflate(R.layout.item_image,parent,false),itemClickListener);
+}
+
+@Override
+public void onBindViewHolder(ImageHolder holder, int position) {
+    Picasso.with(context).load(dataList.get(position)).resize(200,200).centerCrop().into(holder.image);
+}
+
+public void setItemClickListener(OnRecyclerItemClickListener itemClickListener) {
+    this.itemClickListener = itemClickListener;
+}
+
+public static class ImageHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+    private ImageView image;
+    private OnRecyclerItemClickListener itemClickListener;
+
+    public ImageHolder(View itemView,OnRecyclerItemClickListener itemClickListener) {
+        super(itemView);
+        this.itemClickListener = itemClickListener;
+        itemView.setOnClickListener(this);
+        image = (ImageView) itemView.findViewById(R.id.image);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(itemClickListener == null) return;
+        itemClickListener.click(itemView,getAdapterPosition());
+    }
+
+}
+}
+</code></pre><p>Activity中设置RecyclerView，加入RecyclerView的点击事件，进入图片浏览的Activity</p>
+<pre><code>rv.setLayoutManager(new GridLayoutManager(this,3));
+rv.setItemAnimator(new DefaultItemAnimator());
+adapter = new ImageRecyclerAdapter(this,images);
+adapter.setItemClickListener(new OnRecyclerItemClickListener() {
+    @Override
+    public void click(View item, int position) {
+        ImageBrowseActivity.startActivity(MainActivity.this, (ArrayList&lt;String&gt;) images,position);
+    }
+});
+rv.setAdapter(adapter);
+</code></pre><p>显示效果<br><img src="http://upload-images.jianshu.io/upload_images/2098384-f9786393e12e8deb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片展示.png"></p>
+<p>###图片浏览Activity<br>在上一Activity上传入需要显示的图片的集合和显示的Position</p>
+<pre><code>public static void startActivity(Context context, ArrayList&lt;String&gt; images, int position){
+    Intent intent = new Intent(context,ImageBrowseActivity.class);
+    intent.putStringArrayListExtra(&quot;images&quot;,images);
+    intent.putExtra(&quot;position&quot;,position);
+    context.startActivity(intent);
+}
+</code></pre><p>布局Activity，显示图片的hint和保存按钮</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;RelativeLayout
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:background=&quot;@android:color/black&quot;&gt;
+
+    &lt;com.jelly.imagebrowse.view.ViewPagerFixed
+        android:id=&quot;@+id/viewPager&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;&gt;
+
+    &lt;/com.jelly.imagebrowse.view.ViewPagerFixed&gt;
+
+
+
+    &lt;TextView
+        android:id=&quot;@+id/hint&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:padding=&quot;20dp&quot;
+        android:layout_margin=&quot;10dp&quot;
+        android:layout_alignParentBottom=&quot;true&quot;
+        android:textColor=&quot;@android:color/white&quot;
+        android:text=&quot;0/0&quot;/&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/save&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:padding=&quot;20dp&quot;
+        android:layout_margin=&quot;10dp&quot;
+        android:layout_alignParentBottom=&quot;true&quot;
+        android:layout_alignParentRight=&quot;true&quot;
+        android:textColor=&quot;@android:color/white&quot;
+        android:text=&quot;保存&quot;/&gt;
+
+&lt;/RelativeLayout&gt;
+</code></pre><p>在布局文件中使用的ViewPagerFixed，修复了在使用PhotoView时的一个Bug</p>
+<pre><code>package com.jelly.imagebrowse.view;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+
+public class ViewPagerFixed extends android.support.v4.view.ViewPager {
+
+    public ViewPagerFixed(Context context) {
+        super(context);
+    }
+
+    public ViewPagerFixed(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        try {
+            return super.onTouchEvent(ev);
+        } catch (IllegalArgumentException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        try {
+            return super.onInterceptTouchEvent(ev);
+        } catch (IllegalArgumentException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+}
+</code></pre><p>ViewPager的Adapter，这里使用SparseArray进行缓存，PhotoViewAttacher设置ImageView可以放大缩小 ，使用Picasso加载图片，Bitmap.Config.RGB_565提高图片加载效率，在Picasso的回调中调用PhotoViewAttacher的Update刷新，不刷新的话会导致图片错位。</p>
+<pre><code>package com.jelly.imagebrowse.adapter;
+
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.v4.view.PagerAdapter;
+import android.util.SparseArray;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.jelly.imagebrowse.R;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
+import uk.co.senab.photoview.PhotoViewAttacher;
+
+
+/**
+ * 图片浏览ViewPageAdapter
+ * Created by Jelly on 2016/3/10.
+ */
+public class ViewPageAdapter extends PagerAdapter {
+    private Context context;
+    private List&lt;String&gt; images;
+    private SparseArray&lt;View&gt; cacheView;
+    private ViewGroup containerTemp;
+
+    public ViewPageAdapter(Context context, List&lt;String&gt; images) {
+        this.context = context;
+        this.images = images;
+        cacheView = new SparseArray&lt;&gt;(images.size());
+    }
+
+    @Override
+    public Object instantiateItem(final ViewGroup container, int position) {
+        if(containerTemp == null) containerTemp = container;
+
+        View view = cacheView.get(position);
+
+        if(view == null){
+            view = LayoutInflater.from(context).inflate(R.layout.vp_item_image,container,false);
+            view.setTag(position);
+            final ImageView image = (ImageView) view.findViewById(R.id.image);
+            final PhotoViewAttacher photoViewAttacher = new PhotoViewAttacher(image);
+
+            Picasso.with(context).load(images.get(position)).config(Bitmap.Config.RGB_565).into(image, new Callback() {
+                @Override
+                public void onSuccess() {
+                    photoViewAttacher.update();
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
+
+            photoViewAttacher.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
+                @Override
+                public void onPhotoTap(View view, float x, float y) {
+                    Activity activity = (Activity) context;
+                    activity.finish();
+                }
+            });
+            cacheView.put(position,view);
+        }
+        container.addView(view);
+        return view;
+    }
+
+    @Override
+    public int getCount() {
+        return images.size();
+    }
+
+    @Override
+    public boolean isViewFromObject(View view, Object object) {
+        return view == object;
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        View view = (View) object;
+        container.removeView(view);
+    }
+
+}
+</code></pre><p>在图片浏览的Activity中获取需要显示的图片和设置ViewPager的Adapter</p>
+<pre><code>//获取data
+Intent intent = view.getDataIntent();
+images = intent.getStringArrayListExtra(&quot;images&quot;);
+position = intent.getIntExtra(&quot;position&quot;,0);
+view.setImageBrowse(images,position);
+//设置ViewPager
+adapter = new ViewPageAdapter(this,images);
+vp.setAdapter(adapter);
+vp.setCurrentItem(position);
+vp.addOnPageChangeListener(this);
+hint.setText(position + 1 + &quot;/&quot; + images.size());
+</code></pre><p>监听ViewPager的滑动事件，设置hint的显示</p>
+<pre><code>@Override
+public void onPageSelected(int position) {
+    presenter.setPosition(position);
+    hint.setText(position + 1 + &quot;/&quot; + presenter.getImages().size());
+}
+</code></pre><p>加入保存功能</p>
+<pre><code>Picasso.with(view.getMyContext()).load(imageUrl).into(new Target() {
+    @Override
+    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+        // 创建目录
+        File appDir = new File(Environment.getExternalStorageDirectory(), &quot;JellyImage&quot;);
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+
+        String imageType = getImageType(imageUrl); //获取图片类型
+        String fileName = System.currentTimeMillis() + &quot;.&quot; + imageType;
+        File file = new File(appDir, fileName);
+        //保存图片
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            if(TextUtils.equals(imageType,&quot;jpg&quot;)) imageType = &quot;jpeg&quot;;
+            imageType = imageType.toUpperCase();
+            bitmap.compress(Bitmap.CompressFormat.valueOf(imageType), 100, fos);
+            fos.flush();
+            fos.close();
+            Toast.makeText(view.getMyContext(),&quot;保存成功&quot;,Toast.LENGTH_SHORT).show(); //Toast
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // 其次把文件插入到系统图库
+        try {
+            MediaStore.Images.Media.insertImage(view.getMyContext().getContentResolver(), file.getAbsolutePath(), fileName, null);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        // 最后通知图库更新
+        view.getMyContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse(&quot;file://&quot; + file.getPath())));
+    }
+
+    @Override
+    public void onBitmapFailed(Drawable errorDrawable) {
+
+    }
+
+    @Override
+    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+    }
+});
+</code></pre><p>到这里图片浏览器的功能就实现，效果图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2098384-ad84e37ecd53b8b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="放大之前.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2098384-4d3af5d46ac54012.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="放大后.png"></p>
+<p>完整代码：<a href="https://github.com/JellyCai1995/ImageBrowser" target="_blank" rel="external">https://github.com/JellyCai1995/ImageBrowser</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/05/图片浏览器/" class="archive-article-date">
+  	<time datetime="2016-11-05T10:35:40.911Z" itemprop="datePublished"><i class="icon-clock"></i>Nov 5 2016</time>
+</a>
+      
+      
+	<div class="article-category tagcloud">
+	<i class="icon-price-tags"></i>
+	<a class="article-category-link" href="/categories/Android-在此处输入这篇文章的分类。/">Android   //在此处输入这篇文章的分类。</a>
+	</div>
+
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
