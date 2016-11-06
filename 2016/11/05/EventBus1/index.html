@@ -23,7 +23,7 @@ compile &amp;apos;org.greenrobot:eventbus:3.0.0&amp;apos;
 @Override
 protected void onCreate(Bundle savedInstanceState)">
 <meta property="og:image" content="http://i.imgur.com/NVXIxok.png">
-<meta property="og:updated_time" content="2016-11-06T00:20:45.473Z">
+<meta property="og:updated_time" content="2016-11-06T00:49:28.561Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="来不及解释了，快上车之EventBus3.0快速上手">
 <meta name="twitter:description" content="快速教你上手EventBus3.0,在EventBus3.0之前用法不同，就不在这里说了。准备工作，建立EventBus3.0的依赖:
@@ -94,8 +94,6 @@ protected void onCreate(Bundle savedInstanceState)">
 				
 					<a class="github" target="_blank" href="https://github.com/JellyCai1995" title="github">github</a>
 		        
-					<a class="jiansu" target="_blank" href="http://www.jianshu.com/users/1451159c42c2/latest_articles" title="jiansu">jiansu</a>
-		        
 			</div>
 		</nav>
 	</header>		
@@ -132,8 +130,6 @@ protected void onCreate(Bundle savedInstanceState)">
 				<div class="social">
 					
 						<a class="github" target="_blank" href="https://github.com/JellyCai1995" title="github">github</a>
-			        
-						<a class="jiansu" target="_blank" href="http://www.jianshu.com/users/1451159c42c2/latest_articles" title="jiansu">jiansu</a>
 			        
 				</div>
 			</nav>
@@ -176,7 +172,8 @@ protected void onDestroy() {
     super.onDestroy();
     EventBus.getDefault().unregister(this);
 }
-</code></pre><p>3.定义接受事件的方法,可以看到下面代码的源注释，当需要定义接受方法的时候，就需要如此申明<br>，<strong>threadMode = ThreadMode.MAIN</strong>表示接受的方法发生的线程，其他线程指定的方式在<a href="http://www.jianshu.com/p/72f475ac3a8d" target="_blank" rel="external">下一章</a>具体解释。<br>注意：参数不支持基本数据类型，想用整型必须使用Integer：</p>
+</code></pre><a id="more"></a>
+<p>3.定义接受事件的方法,可以看到下面代码的源注释，当需要定义接受方法的时候，就需要如此申明<br>，<strong>threadMode = ThreadMode.MAIN</strong>表示接受的方法发生的线程，其他线程指定的方式在<a href="http://www.91itman.com/2016/11/05/EventBus1/" target="_blank" rel="external">下一章</a>具体解释。<br>注意：参数不支持基本数据类型，想用整型必须使用Integer：</p>
 <pre><code>@Subscribe(threadMode = ThreadMode.MAIN)
 public void onBus(String msg){
     message.setText(msg);
