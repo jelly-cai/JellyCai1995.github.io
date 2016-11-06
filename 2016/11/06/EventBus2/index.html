@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://yoursite.com">
+  <title>来不及解释了，快上车之EventBus3.0更多实用使用 | JellyCai的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在上一章中介绍了EventBus的基本使用,接下来介绍一下其他的，如果没有掌握的可以看上一篇来不及解释了，快上车之EventBus3.0快速上手：
+线程控制在EventBus中有4种线程控制的方式:1.POSTING:同步模式，顾名思义只中方式就是接收事件方法的线程和发送事件方法的线程一致，如果发送事件是在主线程中，那么接收事件也是在主线程中。如果发送事件的是在子线程，那么那么接收事件也会发送事件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="来不及解释了，快上车之EventBus3.0更多实用使用">
+<meta property="og:url" content="http://yoursite.com/2016/11/06/EventBus2/index.html">
+<meta property="og:site_name" content="JellyCai的博客">
+<meta property="og:description" content="在上一章中介绍了EventBus的基本使用,接下来介绍一下其他的，如果没有掌握的可以看上一篇来不及解释了，快上车之EventBus3.0快速上手：
+线程控制在EventBus中有4种线程控制的方式:1.POSTING:同步模式，顾名思义只中方式就是接收事件方法的线程和发送事件方法的线程一致，如果发送事件是在主线程中，那么接收事件也是在主线程中。如果发送事件的是在子线程，那么那么接收事件也会发送事件">
+<meta property="og:updated_time" content="2016-11-06T00:19:38.800Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="来不及解释了，快上车之EventBus3.0更多实用使用">
+<meta name="twitter:description" content="在上一章中介绍了EventBus的基本使用,接下来介绍一下其他的，如果没有掌握的可以看上一篇来不及解释了，快上车之EventBus3.0快速上手：
+线程控制在EventBus中有4种线程控制的方式:1.POSTING:同步模式，顾名思义只中方式就是接收事件方法的线程和发送事件方法的线程一致，如果发送事件是在主线程中，那么接收事件也是在主线程中。如果发送事件的是在子线程，那么那么接收事件也会发送事件">
+  
+  
+    <link rel="icon" href="/assets/img/favicon.ico">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="https://avatars1.githubusercontent.com/u/12812742?v=3&amp;s=466" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">JellyCai</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">读万卷书，行万里路</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/JellyCai1995" title="github">github</a>
+		        
+					<a class="jiansu" target="_blank" href="http://www.jianshu.com/users/1451159c42c2/latest_articles" title="jiansu">jiansu</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">JellyCai</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="https://avatars1.githubusercontent.com/u/12812742?v=3&amp;s=466" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">JellyCai</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">读万卷书，行万里路</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/JellyCai1995" title="github">github</a>
+			        
+						<a class="jiansu" target="_blank" href="http://www.jianshu.com/users/1451159c42c2/latest_articles" title="jiansu">jiansu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-EventBus2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      来不及解释了，快上车之EventBus3.0更多实用使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在<a href="http://www.91itman.com/2016/11/05/EventBus1/" target="_blank" rel="external">上一章</a>中介绍了EventBus的基本使用,接下来介绍一下其他的，如果没有掌握的可以看上一篇<a href="http://www.91itman.com/2016/11/05/EventBus1/" target="_blank" rel="external">来不及解释了，快上车之EventBus3.0快速上手</a>：</p>
+<h2 id="线程控制"><a href="#线程控制" class="headerlink" title="线程控制"></a>线程控制</h2><h3 id="在EventBus中有4种线程控制的方式"><a href="#在EventBus中有4种线程控制的方式" class="headerlink" title="在EventBus中有4种线程控制的方式:"></a>在EventBus中有4种线程控制的方式:</h3><p>1.POSTING:同步模式，顾名思义只中方式就是接收事件方法的线程和发送事件方法的线程一致，如果发送事件是在主线程中，那么接收事件也是在主线程中。如果发送事件的是在子线程，那么那么接收事件也会发送事件的子线程执行。总之会保持一致。</p>
+<p>2.MAIN:主线程模式，无论发送事件是在那个线程发送，接收事件一定会在主线程中执行。这样刚好就解决了只能在主线程中更新UI的问题。</p>
+<p>3.BACKGROUND:后台线程模式，如果发送事件的是在主线程中发送，接收事件就会在新建一个子线程中执行。发送事件是在子线程中执行，接收事件就会发发送事件的子线程中执行。这种模式适合处理耗时任务。</p>
+<p>4.ASYNC:新线程模式，无论发送事件是在何种线程执行，接收事件一定会新建一个子线程去接收。</p>
+<h3 id="线程控制代码示例："><a href="#线程控制代码示例：" class="headerlink" title="线程控制代码示例："></a>线程控制代码示例：</h3><p>事件接收代码，在每一个线程模式里面打印了当前线程的Name，以下为了编码方便，所有代码均在一个Activity里面完成：</p>
+<pre><code>@Subscribe(threadMode = ThreadMode.MAIN)
+public void onBusMain(String message){
+    Log.v(&quot;bus&quot;,&quot;main&quot;+Thread.currentThread().getName());
+}
+
+@Subscribe(threadMode = ThreadMode.POSTING)
+public void onBusPosting(String message){
+    Log.v(&quot;bus&quot;,&quot;posting&quot;+Thread.currentThread().getName());
+}
+
+@Subscribe(threadMode = ThreadMode.BACKGROUND)
+public void onBusBackground(String message){
+    Log.v(&quot;bus&quot;,&quot;background&quot;+Thread.currentThread().getName());
+}
+
+@Subscribe(threadMode = ThreadMode.ASYNC)
+public void onBusAsync(String message){
+    Log.v(&quot;bus&quot;,&quot;async&quot;+Thread.currentThread().getName());
+}
+</code></pre><p>在界面上加入两个按钮：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:orientation=&quot;vertical&quot;&gt;
+
+    &lt;Button
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:onClick=&quot;mainThread&quot;
+        android:text=&quot;在主线程发送&quot;
+        /&gt;
+
+    &lt;Button
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:onClick=&quot;sonThread&quot;
+        android:text=&quot;在子线程发送&quot;
+        /&gt;
+
+&lt;/LinearLayout&gt;
+</code></pre><p>按钮的点击事件，一个在主线程发出事件，一个在子线程里面发出事件：</p>
+<pre><code>public void mainThread(View view){
+    EventBus.getDefault().post(&quot;bus&quot;);
+}
+
+public void sonThread(View view){
+    new Thread(new Runnable() {
+        @Override
+        public void run() {
+            EventBus.getDefault().post(&quot;bus&quot;);
+        }
+    }).start();
+}
+</code></pre><p>点击主线程按钮,logcat打印结果:</p>
+<pre><code>09-30 15:05:13.296 18777-18777/com.jelly.eventbus V/bus: mainmain
+09-30 15:05:13.296 18777-18777/com.jelly.eventbus V/bus: postingmain
+09-30 15:05:13.296 18777-26381/com.jelly.eventbus V/bus: backgroundpool-1-thread-2
+09-30 15:05:13.296 18777-26380/com.jelly.eventbus V/bus: asyncpool-1-thread-1
+</code></pre><p>点击子线程按钮，locat打印结果:</p>
+<pre><code>09-30 15:23:11.628 11282-11282/com.jelly.eventbus V/bus: mainmain    
+09-30 15:23:11.616 11282-11392/com.jelly.eventbus V/bus: postingThread-220
+09-30 15:23:11.616 11282-11392/com.jelly.eventbus V/bus: backgroundThread-220
+09-30 15:23:11.616 11282-11394/com.jelly.eventbus V/bus: asyncpool-1-thread-1    
+</code></pre><p>从上面的打印结果来看，可以论述上面的四点结论。</p>
+<h2 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h2><p>EventBus可以通过设置每个接收事件方法的优先级@Subscribe(priority = 1)开控制接收方法的先后,实例代码：</p>
+<pre><code>@Subscribe(threadMode = ThreadMode.MAIN,priority = 1)
+public void onBus1(String msg){
+    Log.v(&quot;bus&quot;,1 + msg);
+}
+</code></pre><p>priority的值越大，接收顺序就越靠前。如果指定俩个方法的priority的值为1和2，那么priority为2的先接收到，为1的后接收到，还可以在方法内通过cancelEventDelivery()截断事件的传递。实例代码：</p>
+<pre><code>package com.jelly.eventbus;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+/**
+ * Created by Jelly on 2016/9/30.
+ */
+
+public class PriorityActivity extends Activity{
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.setContentView(R.layout.activity_priority);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN,priority = 0)
+    public void onBus(String msg){
+        Log.v(&quot;bus&quot;,0 + msg);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN,priority = 1)
+    public void onBus1(String msg){
+        Log.v(&quot;bus&quot;,1 + msg);
+    }
+
+    @Subscribe(threadMode = ThreadMode.POSTING,priority = 2)
+    public void onBus2(String msg){
+        Log.v(&quot;bus&quot;,2 + msg);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN,priority = 3)
+    public void onBus3(String msg){
+        Log.v(&quot;bus&quot;,3 + msg);
+    }
+
+
+
+    public void click(View view){
+        EventBus.getDefault().post(&quot;消息&quot;);
+    }
+
+}
+</code></pre><p>没有加取消事件的logcat结果：</p>
+<pre><code>10-04 15:58:25.505 4614-4614/com.jelly.eventbus V/bus: 3消息
+10-04 15:58:25.505 4614-4614/com.jelly.eventbus V/bus: 2消息
+10-04 15:58:25.505 4614-4614/com.jelly.eventbus V/bus: 1消息
+10-04 15:58:25.505 4614-4614/com.jelly.eventbus V/bus: 0消息
+</code></pre><p>现在加上取消事件传递：</p>
+<pre><code>@Subscribe(threadMode = ThreadMode.POSTING,priority = 2)
+public void onBus2(String msg){
+    Log.v(&quot;bus&quot;,2 + msg);
+    EventBus.getDefault().cancelEventDelivery(msg);
+}
+</code></pre><p>打印结果：</p>
+<pre><code>10-04 15:55:00.685 4614-4614/com.jelly.eventbus V/bus: 3消息
+10-04 15:55:00.685 4614-4614/com.jelly.eventbus V/bus: 2消息
+</code></pre><p>在取消事件传递的时候有一个注意点，在取消事件传递的方法的线程Mode必须是POSTING的，不然会报event handlers may only abort the incoming event的异常，可以从cancelEventDelivery的源码中看到，在下面代码中的最后一个判断，如果当前事件接收方法不是POSTING,就会抛出这个异常：</p>
+<pre><code>    public void cancelEventDelivery(Object event) {
+    PostingThreadState postingState = currentPostingThreadState.get();
+    if (!postingState.isPosting) {
+        throw new EventBusException(
+                &quot;This method may only be called from inside event handling methods on the posting thread&quot;);
+    } else if (event == null) {
+        throw new EventBusException(&quot;Event may not be null&quot;);
+    } else if (postingState.event != event) {
+        throw new EventBusException(&quot;Only the currently handled event may be aborted&quot;);
+    } else if (postingState.subscription.subscriberMethod.threadMode != ThreadMode.POSTING) {
+        throw new EventBusException(&quot; event handlers may only abort the incoming event&quot;);
+    }
+
+    postingState.canceled = true;
+}
+</code></pre><h2 id="黏性事件"><a href="#黏性事件" class="headerlink" title="黏性事件"></a>黏性事件</h2><p>EventBus支持粘性事件,粘性事件就是在发送了事件之后，再订阅事件，而不是在发送事件之前订阅，事件接收方法也能收到，通过@Subscribe(sticky = true)去指定，发送事件必须通过postSticky发送。示例代码：</p>
+<pre><code>package com.jelly.eventbus;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+/**
+ * Created by Jelly on 2016/10/4.
+ */
+
+public class StickyActivity extends Activity{
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.setContentView(R.layout.activity_sticky);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void onBus(String msg){
+        Log.v(&quot;bus&quot;,msg);
+    }
+
+    public void click(View view){
+        EventBus.getDefault().postSticky(&quot;消息&quot;);
+        EventBus.getDefault().register(this);
+    }
+
+}
+</code></pre><p>打印结果：</p>
+<pre><code>10-04 16:26:43.401 2405-2405/com.jelly.eventbus V/bus: 消息
+</code></pre><h2 id="效率提升"><a href="#效率提升" class="headerlink" title="效率提升"></a>效率提升</h2><p>在EventBus3.0中加入了EventBusAnnotationProcessor提升速度:<br>1.在项目的gradle的dependencies中引入apt，加入classpath ‘com.neenbedankt.gradle.plugins:android-apt:1.8’,结果如下：</p>
+<pre><code>buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath &apos;com.android.tools.build:gradle:2.2.0&apos;
+        classpath &apos;com.neenbedankt.gradle.plugins:android-apt:1.8&apos;
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+</code></pre><p>2.在app module的build.gradle中应用apt插件,并设置apt生成的索引的包名和类名，加入以下代码：</p>
+<pre><code>apply plugin: &apos;com.neenbedankt.android-apt&apos;
+
+apt {
+    arguments {
+        eventBusIndex &quot;com.jelly.eventbus.MyEventBusIndex&quot;
+    }
+}
+
+apt &apos;org.greenrobot:eventbus-annotation-processor:3.0.1&apos;
+</code></pre><p>结果如下：</p>
+<pre><code>apply plugin: &apos;com.android.application&apos;
+apply plugin: &apos;com.neenbedankt.android-apt&apos;
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion &quot;23.0.3&quot;
+    defaultConfig {
+        applicationId &quot;com.jelly.eventbus&quot;
+        minSdkVersion 19
+        targetSdkVersion 23
+        versionCode 1
+        versionName &quot;1.0&quot;
+        testInstrumentationRunner &quot;android.support.test.runner.AndroidJUnitRunner&quot;
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;
+        }
+    }
+}
+
+apt {
+    arguments {
+        eventBusIndex &quot;com.jelly.eventbus.MyEventBusIndex&quot;
+    }
+}
+
+dependencies {
+    compile fileTree(dir: &apos;libs&apos;, include: [&apos;*.jar&apos;])
+    androidTestCompile(&apos;com.android.support.test.espresso:espresso-core:2.2.2&apos;, {
+        exclude group: &apos;com.android.support&apos;, module: &apos;support-annotations&apos;
+    })
+    compile &apos;com.android.support:appcompat-v7:23.4.0&apos;
+    testCompile &apos;junit:junit:4.12&apos;
+    compile &apos;org.greenrobot:eventbus:3.0.0&apos;
+    apt &apos;org.greenrobot:eventbus-annotation-processor:3.0.1&apos;
+}
+</code></pre><p>然后重新编译，记住一定要重新编译，不然找不到MyEventBusIndex，然后在MyApplication里面初始化Index:</p>
+<pre><code>EventBus.builder().addIndex(new MyEventBusIndex()).installDefaultEventBus();
+</code></pre><p>现在就可以开始使用了,啦啦啦！</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/06/EventBus2/" class="archive-article-date">
+  	<time datetime="2016-11-06T00:18:48.000Z" itemprop="datePublished"><i class="icon-clock"></i>Nov 6 2016</time>
+</a>
+      
+      
+	<div class="article-category tagcloud">
+	<i class="icon-price-tags"></i>
+	<a class="article-category-link" href="/categories/Android/">Android</a>
+	</div>
+
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2016/11/05/EventBus1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">来不及解释了，快上车之EventBus3.0快速上手</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="EventBus2" data-title="来不及解释了，快上车之EventBus3.0更多实用使用" data-url="http://yoursite.com/2016/11/06/EventBus2/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"litten-hexo"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 JellyCai
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				
+    			</div>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">JellyCai</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
