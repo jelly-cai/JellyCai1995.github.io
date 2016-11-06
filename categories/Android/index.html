@@ -447,74 +447,6 @@ dependencies {
 
 
   
-    <article id="post-EventBus1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/05/EventBus1/">来不及解释了，快上车之EventBus3.0快速上手</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>快速教你上手EventBus3.0,在EventBus3.0之前用法不同，就不在这里说了。<br>准备工作，建立EventBus3.0的依赖:</p>
-<pre><code>compile &apos;org.greenrobot:eventbus:3.0.0&apos;
-</code></pre><h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>1.在需要订阅的组件内注册事件：</p>
-<pre><code>@Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-    message = (TextView) this.findViewById(R.id.message);
-    EventBus.getDefault().register(this);
-}
-</code></pre><p>2.在结束的时候注销事件:</p>
-<pre><code>@Override
-protected void onDestroy() {
-    super.onDestroy();
-    EventBus.getDefault().unregister(this);
-}
-</code></pre>
-        <p class="article-more-link">
-          <a class="article-more-a"  href="/2016/11/05/EventBus1/#more">more >></a>
-        </p>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/11/05/EventBus1/" class="archive-article-date">
-  	<time datetime="2016-11-05T14:14:11.000Z" itemprop="datePublished"><i class="icon-clock"></i>Nov 5 2016</time>
-</a>
-      
-      
-	<div class="article-category tagcloud">
-	<i class="icon-price-tags"></i>
-	<a class="article-category-link" href="/categories/Android/">Android</a>
-	</div>
-
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-图片浏览器" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -642,7 +574,7 @@ compile &apos;com.squareup.picasso:picasso:+&apos;
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/Android/" style="font-size: 10px;">Android</a>
+    				<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/移动开发-Android/" style="font-size: 10px;">移动开发,Android</a>
     			</div>
     	</section>
     

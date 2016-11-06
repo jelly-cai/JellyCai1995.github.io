@@ -6,12 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: Android | JellyCai的博客</title>
+  <title>Tag: 移动开发,Android | JellyCai的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Android开发，对前端略有涉猎">
 <meta property="og:type" content="website">
 <meta property="og:title" content="JellyCai的博客">
-<meta property="og:url" content="http://yoursite.com/tags/Android/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/移动开发-Android/index.html">
 <meta property="og:site_name" content="JellyCai的博客">
 <meta property="og:description" content="Android开发，对前端略有涉猎">
 <meta name="twitter:card" content="summary">
@@ -125,7 +125,7 @@
       <div class="body-wrap">
         
   
-    <article id="post-图片浏览器" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-EventBus1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -135,7 +135,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/05/图片浏览器/">Android利用Picasso+PhotoView+ViewPager的图片浏览器</a>
+      <a class="article-title" href="/2016/11/05/EventBus1/">来不及解释了，快上车之EventBus3.0快速上手</a>
     </h1>
   
 
@@ -143,41 +143,40 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>写一篇利用Picasso图片加载框架，PhotoView图片缩放控件以及ViewPager的图片浏览器</p>
-<h3 id="首先建立依赖："><a href="#首先建立依赖：" class="headerlink" title="首先建立依赖："></a>首先建立依赖：</h3><p>在这里我们加入PhotoView和picasso的依赖</p>
-<pre><code>//PhotoView       
-compile &apos;com.github.chrisbanes.photoview:library:+&apos;
-//picasso
-compile &apos;com.squareup.picasso:picasso:+&apos;
-</code></pre><h3 id="然后我们写一个图片列表展示的首页"><a href="#然后我们写一个图片列表展示的首页" class="headerlink" title="然后我们写一个图片列表展示的首页"></a>然后我们写一个图片列表展示的首页</h3><p>图片的展示页采用RecyclerView去展示,布局文件如下所示</p>
-<pre><code>&lt;android.support.v7.widget.RecyclerView
-    android:id=&quot;@+id/recyclerView&quot;
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;match_parent&quot;&gt;
-&lt;/android.support.v7.widget.RecyclerView&gt;
+        <p>快速教你上手EventBus3.0,在EventBus3.0之前用法不同，就不在这里说了。<br>准备工作，建立EventBus3.0的依赖:</p>
+<pre><code>compile &apos;org.greenrobot:eventbus:3.0.0&apos;
+</code></pre><h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>1.在需要订阅的组件内注册事件：</p>
+<pre><code>@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    message = (TextView) this.findViewById(R.id.message);
+    EventBus.getDefault().register(this);
+}
+</code></pre><p>2.在结束的时候注销事件:</p>
+<pre><code>@Override
+protected void onDestroy() {
+    super.onDestroy();
+    EventBus.getDefault().unregister(this);
+}
 </code></pre>
         <p class="article-more-link">
-          <a class="article-more-a"  href="/2016/11/05/图片浏览器/#more">more >></a>
+          <a class="article-more-a"  href="/2016/11/05/EventBus1/#more">more >></a>
         </p>
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/11/05/图片浏览器/" class="archive-article-date">
-  	<time datetime="2016-11-05T10:34:37.000Z" itemprop="datePublished"><i class="icon-clock"></i>Nov 5 2016</time>
+      <a href="/2016/11/05/EventBus1/" class="archive-article-date">
+  	<time datetime="2016-11-05T14:14:11.000Z" itemprop="datePublished"><i class="icon-clock"></i>Nov 5 2016</time>
 </a>
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/移动开发-Android/">移动开发,Android</a></li></ul>
 	</div>
 
       
-	<div class="article-category tagcloud">
-	<i class="icon-price-tags"></i>
-	<a class="article-category-link" href="/categories/Android/">Android</a>
-	</div>
-
 
       <div class="clearfix"></div>
     </div>
