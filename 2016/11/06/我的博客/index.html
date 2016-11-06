@@ -8,40 +8,22 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Android利用Picasso+PhotoView+ViewPager的图片浏览器 | JellyCai的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近项目需要我们的App需要集成微信支付，所以在这里写一篇文章来解析一下微信支付中的一些坑。
-Android支付
-开发准备：
-第一步：注册一个微信开放平台的账户：微信开放平台
-第二步：在微信开放平台中认证开发者职责，在这一步需要填写公司的一些基本信息">
+  <meta name="description" content="忙活了一天终于把博客给迁移到Github上面了。
+由于之前的博客是用wordpress去搭建的，折腾了很长时间，博客的效果也不太好，所以不得不迁移到github上面。具体的搭建过程，也是参照各种大牛的博客。想搭建的同学可以看手把手教你使用Hexo + Github Pages搭建个人独立博客
+今天是2016年11月6日，博客雏形终于出来了">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android利用Picasso+PhotoView+ViewPager的图片浏览器">
-<meta property="og:url" content="http://yoursite.com/2016/11/05/Android微信支付/index.html">
+<meta property="og:url" content="http://yoursite.com/2016/11/06/我的博客/index.html">
 <meta property="og:site_name" content="JellyCai的博客">
-<meta property="og:description" content="最近项目需要我们的App需要集成微信支付，所以在这里写一篇文章来解析一下微信支付中的一些坑。
-Android支付
-开发准备：
-第一步：注册一个微信开放平台的账户：微信开放平台
-第二步：在微信开放平台中认证开发者职责，在这一步需要填写公司的一些基本信息">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-6ad9a5a0ff1274aa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-2f7c4e2de883548e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-19571b3416c7cdd9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-a0e6044d25053fd8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-e96aa9200b2ffcf5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-10dc5b98c04cb7ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-e0ad8d7986b2950e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-caaf48913413e25b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-3741c263de7d37c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-27be091a33d58971.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-961012b89976235c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-11-06T01:48:31.702Z">
+<meta property="og:description" content="忙活了一天终于把博客给迁移到Github上面了。
+由于之前的博客是用wordpress去搭建的，折腾了很长时间，博客的效果也不太好，所以不得不迁移到github上面。具体的搭建过程，也是参照各种大牛的博客。想搭建的同学可以看手把手教你使用Hexo + Github Pages搭建个人独立博客
+今天是2016年11月6日，博客雏形终于出来了">
+<meta property="og:updated_time" content="2016-11-06T01:59:11.464Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android利用Picasso+PhotoView+ViewPager的图片浏览器">
-<meta name="twitter:description" content="最近项目需要我们的App需要集成微信支付，所以在这里写一篇文章来解析一下微信支付中的一些坑。
-Android支付
-开发准备：
-第一步：注册一个微信开放平台的账户：微信开放平台
-第二步：在微信开放平台中认证开发者职责，在这一步需要填写公司的一些基本信息">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2098384-6ad9a5a0ff1274aa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:description" content="忙活了一天终于把博客给迁移到Github上面了。
+由于之前的博客是用wordpress去搭建的，折腾了很长时间，博客的效果也不太好，所以不得不迁移到github上面。具体的搭建过程，也是参照各种大牛的博客。想搭建的同学可以看手把手教你使用Hexo + Github Pages搭建个人独立博客
+今天是2016年11月6日，博客雏形终于出来了">
   
   
     <link rel="icon" href="/assets/img/favicon.ico">
@@ -148,7 +130,7 @@ Android支付
 </nav>
 
       <div class="body-wrap">
-        <article id="post-Android微信支付" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-我的博客" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -166,41 +148,21 @@ Android支付
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近项目需要我们的App需要集成微信支付，所以在这里写一篇文章来解析一下微信支付中的一些坑。</p>
-<p>Android支付</p>
-<p>开发准备：</p>
-<p>第一步：注册一个微信开放平台的账户：<a href="https://open.weixin.qq.com/" target="_blank" rel="external">微信开放平台</a></p>
-<p>第二步：在微信开放平台中认证开发者职责，在这一步需要填写公司的一些基本信息</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2098384-6ad9a5a0ff1274aa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="认证开发者"><br><a id="more"></a><br>第三步:创建移动应用，创建移动应用的时候需要填写应用的简介等信息，审核成功后就可以直接获取AppID和AppSecret<br><img src="http://upload-images.jianshu.io/upload_images/2098384-2f7c4e2de883548e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建移动应用"></p>
-<p>第四步：申请获得微信支付能力，需要填写公司的信息。<br><img src="http://upload-images.jianshu.io/upload_images/2098384-19571b3416c7cdd9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="获得微信支付能力"><br><img src="http://upload-images.jianshu.io/upload_images/2098384-a0e6044d25053fd8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="获取AppID和AppSecret"></p>
-<p>第五步：申请支付能力成功后，微信会下发邮件给你一个 商户平台的账户和密码，使用这个账户和密码登录商户,平台获取MucId:生成预付款订单的一个重要信息。 key：key没有初始值，需要自己手动重新设置,key是用于开发的时候的签名。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2098384-e96aa9200b2ffcf5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="获取微信支付的商户号（MchId）"><br><img src="http://upload-images.jianshu.io/upload_images/2098384-10dc5b98c04cb7ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="设置密钥（key）"></p>
-<p>开发：</p>
-<p>第一步：</p>
-<p>在后台生成一个预付款订单，生成预付款订单的时候需要把参数拼接成xml的格式，并把App发起支付需要的信息返回给App，App获取到这些信息后，就可以发起微信支付。</p>
-<p>参数中需要加上支付后的通知地址，微信支付成功后，不仅会通知App，还会通知我们在这里设置的通知地址，微信支付的结果，以后台接收到的通知为准，怎么获取通知参数，在后面可以看到。</p>
-<p>在生成预付款订单的时候需要签名，微信支付的签名是MD5格式的，签名方法在后面可以看到。</p>
-<p>签名的顺序和含义可以参考官方文档<a href="https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_1" target="_blank" rel="external">【微信支付】APP支付开发者文档</a>，签名是否正确可以在微信：<a href="https://pay.weixin.qq.com/wiki/tools/signverify/" target="_blank" rel="external">微信公众平台支付接口调试工具上验证</a></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2098384-e0ad8d7986b2950e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="生成预付款订单代码"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2098384-caaf48913413e25b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MD5加密"></p>
-<p>通知地址代码<br>第二步：下载微信的sdk，并且把libammsdk.jar集成到Android项目上，下载地址：<a href="https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=11_1" target="_blank" rel="external">【微信支付】APP支付开发者文档</a>。查看微信的demo可以解答很多疑惑。</p>
-<p>第三步：在app上面吊起微信支付。在调起支付的时候必须要先把应用注册到微信上。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2098384-3741c263de7d37c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="掉起微信支付"></p>
-<p>第四步：添加微信回调的Activity,这个Activity的包名必须是(应用的包名.wxapi)，类名必须是WXPayEntryActivity.并且实现微信支付的回调监听接口。实现它的两个方法。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2098384-27be091a33d58971.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="回调的Activity"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2098384-961012b89976235c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="微信文档"></p>
+        <p>忙活了一天终于把博客给迁移到Github上面了。</p>
+<p>由于之前的博客是用wordpress去搭建的，折腾了很长时间，博客的效果也不太好，所以不得不迁移到github上面。具体的搭建过程，也是参照各种大牛的博客。想搭建的同学可以看<a href="http://jiji262.github.io/2016/04/15/2016-04-15-hexo-github-pages-blog/" target="_blank" rel="external">手把手教你使用Hexo + Github Pages搭建个人独立博客</a></p>
+<p>今天是2016年11月6日，博客雏形终于出来了</p>
 
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/11/05/Android微信支付/" class="archive-article-date">
-  	<time datetime="2016-11-05T10:34:37.000Z" itemprop="datePublished"><i class="icon-clock"></i>Nov 5 2016</time>
+      <a href="/2016/11/06/我的博客/" class="archive-article-date">
+  	<time datetime="2016-11-06T01:56:54.000Z" itemprop="datePublished"><i class="icon-clock"></i>Nov 6 2016</time>
 </a>
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/矫情/">矫情</a></li></ul>
 	</div>
 
       
@@ -213,15 +175,11 @@ Android支付
   
 <nav id="article-nav">
   
-    <a href="/2016/11/05/图片浏览器/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Android利用Picasso+PhotoView+ViewPager的图片浏览器
-        
-      </div>
-    </a>
   
+    <a href="/2016/11/06/EventBus2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">来不及解释了，快上车之EventBus3.0更多实用使用</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -253,7 +211,7 @@ Android支付
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Android微信支付" data-title="Android利用Picasso+PhotoView+ViewPager的图片浏览器" data-url="http://yoursite.com/2016/11/05/Android微信支付/"></div>
+	<div class="ds-thread" data-thread-key="我的博客" data-title="Android利用Picasso+PhotoView+ViewPager的图片浏览器" data-url="http://yoursite.com/2016/11/06/我的博客/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
