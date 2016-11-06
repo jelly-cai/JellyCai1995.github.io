@@ -125,6 +125,62 @@
       <div class="body-wrap">
         
   
+    <article id="post-EventBus2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/06/EventBus2/">来不及解释了，快上车之EventBus3.0更多实用使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在<a href="http://www.91itman.com/2016/11/05/EventBus1/">上一章</a>中介绍了EventBus的基本使用,接下来介绍一下其他的，如果没有掌握的可以看上一篇<a href="http://www.91itman.com/2016/11/05/EventBus1/">来不及解释了，快上车之EventBus3.0快速上手</a>：</p>
+<h2 id="线程控制"><a href="#线程控制" class="headerlink" title="线程控制"></a>线程控制</h2><h3 id="在EventBus中有4种线程控制的方式"><a href="#在EventBus中有4种线程控制的方式" class="headerlink" title="在EventBus中有4种线程控制的方式:"></a>在EventBus中有4种线程控制的方式:</h3><p>1.POSTING:同步模式，顾名思义只中方式就是接收事件方法的线程和发送事件方法的线程一致，如果发送事件是在主线程中，那么接收事件也是在主线程中。如果发送事件的是在子线程，那么那么接收事件也会发送事件的子线程执行。总之会保持一致。</p>
+<p>2.MAIN:主线程模式，无论发送事件是在那个线程发送，接收事件一定会在主线程中执行。这样刚好就解决了只能在主线程中更新UI的问题。</p>
+<p>3.BACKGROUND:后台线程模式，如果发送事件的是在主线程中发送，接收事件就会在新建一个子线程中执行。发送事件是在子线程中执行，接收事件就会发发送事件的子线程中执行。这种模式适合处理耗时任务。</p>
+<p>4.ASYNC:新线程模式，无论发送事件是在何种线程执行，接收事件一定会新建一个子线程去接收。<br>
+        <p class="article-more-link">
+          <a class="article-more-a"  href="/2016/11/06/EventBus2/#more">more >></a>
+        </p>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/06/EventBus2/" class="archive-article-date">
+  	<time datetime="2016-11-06T00:18:48.000Z" itemprop="datePublished"><i class="icon-clock"></i>Nov 6 2016</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-图片浏览器" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -173,11 +229,6 @@ compile &apos;com.squareup.picasso:picasso:+&apos;
 	</div>
 
       
-	<div class="article-category tagcloud">
-	<i class="icon-price-tags"></i>
-	<a class="article-category-link" href="/categories/Android/">Android</a>
-	</div>
-
 
       <div class="clearfix"></div>
     </div>
@@ -252,7 +303,7 @@ compile &apos;com.squareup.picasso:picasso:+&apos;
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/移动开发-Android/" style="font-size: 10px;">移动开发,Android</a>
+    				<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/移动开发-Android/" style="font-size: 10px;">移动开发-Android</a>
     			</div>
     	</section>
     
