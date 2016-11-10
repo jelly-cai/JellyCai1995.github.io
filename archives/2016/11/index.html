@@ -125,6 +125,222 @@
       <div class="body-wrap">
         
   
+    <article id="post-WebView广告" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/07/WebView广告/">Android快速去掉WebView上的烦人广告</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>近日，在把某网站用WebView打包到App里面的时候，出现的一个麻烦。看下图<br><img src="http://i.imgur.com/YYvXuJM.jpg" alt="广告"><br>额，有广告。不影响阅读体验的广告都是可以接受的。但是有一问题是因为有一个广告div比屏幕要大，导致该网页在在移动端上可以左右滑动，这个就没法忍受了，看下图<br><img src="http://i.imgur.com/BrZqxhK.jpg" alt="广告"><br>没办法了，只能把广告去掉了.<br>首先看看集成网页的代码.</p>
+<pre><code>private WebView webView;
+private WebSettings settings;
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    this.setContentView(R.layout.activity_main);
+    webView = (WebView) findViewById(web);
+    //设置WebView属性，能够执行Javascript脚本
+    settings = webView.getSettings();
+    settings.setJavaScriptEnabled(true);
+    settings.setAppCacheEnabled(true);
+    webView.setWebViewClient(new NoAdWebViewClient());
+    //加载需要显示的网页
+    webView.loadUrl(&quot;http://champion.gg/&quot;);
+
+
+}
+</code></pre><p>为了支持离线浏览，打开了WebView的默认缓存，设置支持js支持,设置WebClient，这里的NoAdWebViewClient在下面可以看到，在WebViewClient里面去掉广告.</p>
+<pre><code>@Override
+//设置回退
+//覆盖Activity类的onKeyDown(int keyCoder,KeyEvent event)方法
+public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if ((keyCode == KeyEvent.KEYCODE_BACK) &amp;&amp; webView.canGoBack()) {
+        webView.goBack(); //goBack()表示返回WebView的上一页面
+        return true;
+    }
+    return false;
+}
+</code></pre><p>重写Activity的onKeyDown简单back案件，当网页可以back的时候让网页回到上一页面.<br>来看一下NoAdWebViewClient的关键代码:<br>继承系统的WebViewClient，然后重写onPageFinished方法。</p>
+<pre><code>package com.jelly.championgg;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Message;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+
+/**
+ * Created by BrainWang on 05/01/2016.
+ */
+public class NoAdWebViewClient extends WebViewClient {
+
+    private Context context;    
+
+    public NoAdWebViewClient(Context context) {
+        this.context = context;
+    }
+
+    @Override
+    public void onPageFinished(WebView view, String url) {
+        super.onPageFinished(view, url);
+        String js = ADFilterTool.getClearAdDivJs(context);
+        Log.v(&quot;adJs&quot;,js);
+        view.loadUrl(js);
+    }
+
+}
+</code></pre><p>在onPageFinished里面外面执行的了一段Js,来看一看这段js（以下js为了方便阅读，经过整理）：</p>
+<pre><code>javascript:
+var adDiv0= document.getElementById(&apos;div-gpt-ad-1443488528500-4&apos;);
+if(adDiv0 != null)
+    adDiv0.parentNode.removeChild(adDiv0);
+
+var adDiv1= document.getElementById(&apos;div-gpt-ad-1443727656867-1&apos;);
+if(adDiv1 != null)
+    adDiv1.parentNode.removeChild(adDiv1);
+
+var adDiv2= document.getElementById(&apos;div-gpt-ad-1443488528500-5&apos;);
+if(adDiv2 != null)
+    adDiv2.parentNode.removeChild(adDiv2);
+...
+</code></pre><p>去掉广告的原理很简单，注入一段js把显示广告的div删除就ok了，来看一下生成js的代码:</p>
+<pre><code>    public static String getClearAdDivJs(Context context){
+    String js = &quot;javascript:&quot;;
+    Resources res = context.getResources();
+    String[] adDivs = res.getStringArray(R.array.adBlockDiv);
+    for(int i=0;i&lt;adDivs.length;i++){
+
+        js += &quot;var adDiv&quot;+i+&quot;= document.getElementById(&apos;&quot;+adDivs[i]+&quot;&apos;);if(adDiv&quot;+i+&quot; != null)adDiv&quot;+i+&quot;.parentNode.removeChild(adDiv&quot;+i+&quot;);&quot;;
+    }
+    return js;
+}
+</code></pre><p>通过arrays.xml去管理去要去掉的广告div，遍历广告divId的集合，组合成一段js代码，注入到网页中去掉广告.</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+
+    &lt;string-array name=&quot;adBlockDiv&quot;&gt;
+        &lt;item&gt;div-gpt-ad-1443488528500-4&lt;/item&gt;
+        &lt;item&gt;div-gpt-ad-1443727656867-1&lt;/item&gt;
+        &lt;item&gt;div-gpt-ad-1443488528500-5&lt;/item&gt;
+        &lt;item&gt;div-gpt-ad-1443488528500-6&lt;/item&gt;
+        &lt;item&gt;div-gpt-ad-1443488528500-7&lt;/item&gt;
+        &lt;item&gt;div-gpt-ad-1443727656867-0&lt;/item&gt;
+        &lt;item&gt;div-gpt-ad-1443488528500-2&lt;/item&gt;
+        &lt;item&gt;div-gpt-ad-1443488528500-3&lt;/item&gt;
+        &lt;item&gt;div-gpt-ad-1443488528500-1&lt;/item&gt;
+    &lt;/string-array&gt;
+
+&lt;/resources&gt;
+</code></pre><p>那么这些广告div的Id是如何获取的呢？我们通过Chrome浏览器可以很方便的获取到这些Id,可以看到通过F12的调试模式可以轻易的获取到广告div的Id<br><img src="http://i.imgur.com/Nk8aMmk.png" alt="获取广告ID"><br>完成后我们就可以看到没有广告的页面了，完成效果。<br><img src="http://i.imgur.com/ZsIBd2Z.jpg" alt="最后效果"><br>其实这里还有一个问题，当网络比较慢的情况下，我们的网页会一直加载，然后当还没有调用onPageFinished的时候，用户就已经开始操作了，所以我们可以优化一下这种方式：</p>
+<pre><code>package com.jelly.championgg;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+
+/**
+ * Created by BrainWang on 05/01/2016.
+ */
+public class NoAdWebViewClient extends WebViewClient {
+    private Context context;
+    private WebView webView;
+    private boolean isClose;
+
+    public NoAdWebViewClient(Context context,WebView webView) {
+        this.context = context;
+        this.webView = webView;
+    }
+
+
+    @Override
+    public void onPageStarted(WebView view, String url, Bitmap favicon) {
+        super.onPageStarted(view, url, favicon);
+        if(isClose){ //如果线程正在运行就不用重新开启一个线程了
+            return;
+        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                isClose = true;
+                while (isClose){
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    handler.sendEmptyMessage(0x001);
+                }
+            }
+        }).start();
+    }
+
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            String js = ADFilterTool.getClearAdDivJs(context);
+            Log.v(&quot;adJs&quot;,js);
+            webView.loadUrl(js);
+        }
+    };
+
+    @Override
+    public void onPageFinished(WebView view, String url) {
+        super.onPageFinished(view, url);
+        isClose = false;
+    }
+
+}
+</code></pre><p>在NoAdWebViewClient里面我们重写onPageStarted方法，并且开启一个线程，每1秒的循环注入js，在这里由于不能在子线程里面操作WebView，所以利用Handler去注入js.并且在onPageFinished内关闭线程.这样之后，即使网络很忙，在没有回调onPageFinished的时候，也不会出现广告了。</p>
+<p><a href="https://github.com/JellyCai1995/NoAdChampiongg" target="_blank" rel="external">代码地址</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/07/WebView广告/" class="archive-article-date">
+  	<time datetime="2016-11-07T03:02:07.000Z" itemprop="datePublished"><i class="icon-clock"></i>Nov 7 2016</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-我的博客" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -375,7 +591,7 @@ compile &apos;com.squareup.picasso:picasso:+&apos;
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/05/Android微信支付/">Android利用Picasso+PhotoView+ViewPager的图片浏览器</a>
+      <a class="article-title" href="/2016/11/05/Android微信支付/">Android微信支付</a>
     </h1>
   
 
