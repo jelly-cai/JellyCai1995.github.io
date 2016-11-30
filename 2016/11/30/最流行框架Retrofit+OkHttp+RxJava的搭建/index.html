@@ -6,17 +6,38 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>JellyCai的博客</title>
+  <title>最流行的网络访问框架Retrofit+OkHttp+RxJava的搭建过程 | JellyCai的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Android开发，对前端略有涉猎">
-<meta property="og:type" content="website">
-<meta property="og:title" content="JellyCai的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="现在Android开发中最潮流的网络的搭建过程，结构清晰易懂。在这里分享一下搭建的过程.首先不用多说，肯定是先建立依赖:
+//RxJava
+compile &amp;apos;io.reactivex:rxjava:1.1.3&amp;apos;
+//RxAndroid
+compile &amp;apos;io.reactivex:rxandroid:1.1.0&amp;apos;
+//retrofit
+compile &amp;apo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最流行的网络访问框架Retrofit+OkHttp+RxJava的搭建过程">
+<meta property="og:url" content="http://yoursite.com/2016/11/30/最流行框架Retrofit+OkHttp+RxJava的搭建/index.html">
 <meta property="og:site_name" content="JellyCai的博客">
-<meta property="og:description" content="Android开发，对前端略有涉猎">
+<meta property="og:description" content="现在Android开发中最潮流的网络的搭建过程，结构清晰易懂。在这里分享一下搭建的过程.首先不用多说，肯定是先建立依赖:
+//RxJava
+compile &amp;apos;io.reactivex:rxjava:1.1.3&amp;apos;
+//RxAndroid
+compile &amp;apos;io.reactivex:rxandroid:1.1.0&amp;apos;
+//retrofit
+compile &amp;apo">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-3fa7b9bc016c38dd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-11-30T09:40:16.281Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JellyCai的博客">
-<meta name="twitter:description" content="Android开发，对前端略有涉猎">
+<meta name="twitter:title" content="最流行的网络访问框架Retrofit+OkHttp+RxJava的搭建过程">
+<meta name="twitter:description" content="现在Android开发中最潮流的网络的搭建过程，结构清晰易懂。在这里分享一下搭建的过程.首先不用多说，肯定是先建立依赖:
+//RxJava
+compile &amp;apos;io.reactivex:rxjava:1.1.3&amp;apos;
+//RxAndroid
+compile &amp;apos;io.reactivex:rxandroid:1.1.0&amp;apos;
+//retrofit
+compile &amp;apo">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2098384-3fa7b9bc016c38dd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
   
     <link rel="icon" href="/assets/img/favicon.ico">
@@ -123,9 +144,7 @@
 </nav>
 
       <div class="body-wrap">
-        
-  
-    <article id="post-最流行框架Retrofit+OkHttp+RxJava的搭建" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-最流行框架Retrofit+OkHttp+RxJava的搭建" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -134,8 +153,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/30/最流行框架Retrofit+OkHttp+RxJava的搭建/">最流行的网络访问框架Retrofit+OkHttp+RxJava的搭建过程</a>
+    <h1 class="article-title" itemprop="name">
+      最流行的网络访问框架Retrofit+OkHttp+RxJava的搭建过程
     </h1>
   
 
@@ -402,366 +421,64 @@ Scalars (primitives, boxed, and String): com.squareup.retrofit2:converter-scalar
   </div>
 </article>
 
-
-
-
-
-
-
-
-
-
   
-    <article id="post-WebView广告" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/07/WebView广告/">Android快速去掉WebView上的烦人广告</a>
-    </h1>
   
+    <a href="/2016/11/07/WebView广告/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android快速去掉WebView上的烦人广告</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>近日，在把某网站用WebView打包到App里面的时候，出现的一个麻烦。看下图<br><img src="http://upload-images.jianshu.io/upload_images/2098384-19f5829027718ee1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="广告"><br>额，有广告。不影响阅读体验的广告都是可以接受的。但是有一问题是因为有一个广告div比屏幕要大，导致该网页在在移动端上可以左右滑动，这个就没法忍受了，看下图<br>
-        <p class="article-more-link">
-          <a class="article-more-a"  href="/2016/11/07/WebView广告/#more">more >></a>
-        </p>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/11/07/WebView广告/" class="archive-article-date">
-  	<time datetime="2016-11-07T03:02:07.000Z" itemprop="datePublished"><i class="icon-clock"></i>Nov 7 2016</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
 	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
-      
 
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
 
 
 
 
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="最流行框架Retrofit+OkHttp+RxJava的搭建" data-title="最流行的网络访问框架Retrofit+OkHttp+RxJava的搭建过程" data-url="http://yoursite.com/2016/11/30/最流行框架Retrofit+OkHttp+RxJava的搭建/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"litten-hexo"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
 
 
-
-
-
-  
-    <article id="post-我的博客" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/06/我的博客/">博客升级</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>忙活了一天终于把博客给迁移到Github上面了。</p>
-<p>由于之前的博客是用wordpress去搭建的，折腾了很长时间，博客的效果也不太好，所以不得不迁移到github上面。具体的搭建过程，也是参照各种大牛的博客。想搭建的同学可以看<a href="http://jiji262.github.io/2016/04/15/2016-04-15-hexo-github-pages-blog/" target="_blank" rel="external">手把手教你使用Hexo + Github Pages搭建个人独立博客</a></p>
-<p>今天是2016年11月6日，博客雏形终于出来了</p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/11/06/我的博客/" class="archive-article-date">
-  	<time datetime="2016-11-06T01:56:54.000Z" itemprop="datePublished"><i class="icon-clock"></i>Nov 6 2016</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/矫情/">矫情</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-EventBus2" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/06/EventBus2/">来不及解释了，快上车之EventBus3.0更多实用使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在<a href="http://www.91itman.com/2016/11/05/EventBus1/">上一章</a>中介绍了EventBus的基本使用,接下来介绍一下其他的，如果没有掌握的可以看上一篇<a href="http://www.91itman.com/2016/11/05/EventBus1/">来不及解释了，快上车之EventBus3.0快速上手</a>：</p>
-<h2 id="线程控制"><a href="#线程控制" class="headerlink" title="线程控制"></a>线程控制</h2><h3 id="在EventBus中有4种线程控制的方式"><a href="#在EventBus中有4种线程控制的方式" class="headerlink" title="在EventBus中有4种线程控制的方式:"></a>在EventBus中有4种线程控制的方式:</h3><p>1.POSTING:同步模式，顾名思义只中方式就是接收事件方法的线程和发送事件方法的线程一致，如果发送事件是在主线程中，那么接收事件也是在主线程中。如果发送事件的是在子线程，那么那么接收事件也会发送事件的子线程执行。总之会保持一致。</p>
-<p>2.MAIN:主线程模式，无论发送事件是在那个线程发送，接收事件一定会在主线程中执行。这样刚好就解决了只能在主线程中更新UI的问题。</p>
-<p>3.BACKGROUND:后台线程模式，如果发送事件的是在主线程中发送，接收事件就会在新建一个子线程中执行。发送事件是在子线程中执行，接收事件就会发发送事件的子线程中执行。这种模式适合处理耗时任务。</p>
-<p>4.ASYNC:新线程模式，无论发送事件是在何种线程执行，接收事件一定会新建一个子线程去接收。<br>
-        <p class="article-more-link">
-          <a class="article-more-a"  href="/2016/11/06/EventBus2/#more">more >></a>
-        </p>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/11/06/EventBus2/" class="archive-article-date">
-  	<time datetime="2016-11-06T00:18:48.000Z" itemprop="datePublished"><i class="icon-clock"></i>Nov 6 2016</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-EventBus1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/05/EventBus1/">来不及解释了，快上车之EventBus3.0快速上手</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>快速教你上手EventBus3.0,在EventBus3.0之前用法不同，就不在这里说了。<br>准备工作，建立EventBus3.0的依赖:</p>
-<pre><code>compile &apos;org.greenrobot:eventbus:3.0.0&apos;
-</code></pre><h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>1.在需要订阅的组件内注册事件：</p>
-<pre><code>@Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-    message = (TextView) this.findViewById(R.id.message);
-    EventBus.getDefault().register(this);
-}
-</code></pre><p>2.在结束的时候注销事件:</p>
-<pre><code>@Override
-protected void onDestroy() {
-    super.onDestroy();
-    EventBus.getDefault().unregister(this);
-}
-</code></pre>
-        <p class="article-more-link">
-          <a class="article-more-a"  href="/2016/11/05/EventBus1/#more">more >></a>
-        </p>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/11/05/EventBus1/" class="archive-article-date">
-  	<time datetime="2016-11-05T14:14:11.000Z" itemprop="datePublished"><i class="icon-clock"></i>Nov 5 2016</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/移动开发-Android/">移动开发-Android</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-图片浏览器" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/05/图片浏览器/">Android利用Picasso+PhotoView+ViewPager的图片浏览器</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>写一篇利用Picasso图片加载框架，PhotoView图片缩放控件以及ViewPager的图片浏览器</p>
-<h3 id="首先建立依赖："><a href="#首先建立依赖：" class="headerlink" title="首先建立依赖："></a>首先建立依赖：</h3><p>在这里我们加入PhotoView和picasso的依赖</p>
-<pre><code>//PhotoView       
-compile &apos;com.github.chrisbanes.photoview:library:+&apos;
-//picasso
-compile &apos;com.squareup.picasso:picasso:+&apos;
-</code></pre><h3 id="然后我们写一个图片列表展示的首页"><a href="#然后我们写一个图片列表展示的首页" class="headerlink" title="然后我们写一个图片列表展示的首页"></a>然后我们写一个图片列表展示的首页</h3><p>图片的展示页采用RecyclerView去展示,布局文件如下所示</p>
-<pre><code>&lt;android.support.v7.widget.RecyclerView
-    android:id=&quot;@+id/recyclerView&quot;
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;match_parent&quot;&gt;
-&lt;/android.support.v7.widget.RecyclerView&gt;
-</code></pre>
-        <p class="article-more-link">
-          <a class="article-more-a"  href="/2016/11/05/图片浏览器/#more">more >></a>
-        </p>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/11/05/图片浏览器/" class="archive-article-date">
-  	<time datetime="2016-11-05T10:34:37.000Z" itemprop="datePublished"><i class="icon-clock"></i>Nov 5 2016</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Android微信支付" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/05/Android微信支付/">Android微信支付</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近项目需要我们的App需要集成微信支付，所以在这里写一篇文章来解析一下微信支付中的一些坑。</p>
-<p>Android支付</p>
-<p>开发准备：</p>
-<p>第一步：注册一个微信开放平台的账户：<a href="https://open.weixin.qq.com/">微信开放平台</a></p>
-<p>第二步：在微信开放平台中认证开发者职责，在这一步需要填写公司的一些基本信息</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2098384-6ad9a5a0ff1274aa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="认证开发者"><br>
-        <p class="article-more-link">
-          <a class="article-more-a"  href="/2016/11/05/Android微信支付/#more">more >></a>
-        </p>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/11/05/Android微信支付/" class="archive-article-date">
-  	<time datetime="2016-11-05T10:34:37.000Z" itemprop="datePublished"><i class="icon-clock"></i>Nov 5 2016</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-  
 
 
       </div>
@@ -783,8 +500,8 @@ compile &apos;com.squareup.picasso:picasso:+&apos;
 		fancybox: true,
 		mathjax: false,
 		animate: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
