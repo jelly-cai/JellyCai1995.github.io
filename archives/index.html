@@ -125,6 +125,241 @@
       <div class="body-wrap">
         
   
+    <article id="post-初探QuartZ" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/05/初探QuartZ/">初探Quartz</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近项目中用到了QuartZ任务调度库，在这里简单介绍一下，最新版的QuartZ的基本使用和语法。<br>开始使用QuartZ：   </p>
+<p>###1.下载QuartZ<br>下载地址<a href="http://www.quartz-scheduler.org/downloads/" target="_blank" rel="external">点这里</a>,下载了之后可以看到lib文件，我们在这里需要用到的jar文件,quartz—.jar是QuartZ实现的jar，其他的3个jar的QuartZ日志所需要的jar，下图这四个库是必须要使用的：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2098384-346735a01bfc1eb7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="需要的jar包.png">   </p>
+<p>###2.任务具体实现<br>在QuartZ中，所有的任务都必须实现Job接口，Job中只有一个<code>execute(JobExecutionContext context)</code>实现方法，我们的具体业务实现就得写在这个方法里面，这个方法将会在触发器满足调度条件是触发.<br>参数JobExecutionContext可以用来设置调用结果Result,通过put或者set方法.<br>代码示例：</p>
+<pre><code>package com.jelly.quartz;
+
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+
+public class Job1 implements Job{
+
+    public void execute(JobExecutionContext arg0) throws JobExecutionException {
+        SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm:ss&quot;);
+        System.out.println(sdf.format(new Date())+&quot; ---- start Job&quot;);
+    }
+
+}
+</code></pre><p>JavaDoc截图：<br><img src="http://upload-images.jianshu.io/upload_images/2098384-e2fd76dfa62be633.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="JavaDoc截图.png">   </p>
+<p>###3.设置简单调度任务<br>设置调度任务一共分为四个步骤   </p>
+<p>#####(1)实例化JobDetail(调度任务)：<br>由于JobDetail是一个接口，所以必须通过JobBuilder实例化JobDetail，看一下具体代码：</p>
+<pre><code>JobBuilder jobBuilder = JobBuilder.newJob(Job1.class);
+jobBuilder.withIdentity(&quot;job1&quot;, &quot;group1&quot;);
+JobDetail jobDetail = jobBuilder.build();
+</code></pre><p>通过JobBuilder的newJob方法设置需要执行的Job任务类名，withIdentity是设置JobDetail的name和gruop（如果没有设置的话，将会随机生成name和group）最后通过build方法就可以实例化JobDetail.   </p>
+<p>#####(2)实例化Trigger(触发器):<br>Trigger也是个接口，只能通过TriggerBuilder去实例化，具体代码：</p>
+<pre><code>TriggerBuilder&lt;Trigger&gt; triggerBuilder = TriggerBuilder.newTrigger();
+triggerBuilder.withIdentity(&quot;tigger1&quot;, &quot;group1&quot;);
+triggerBuilder.startNow();
+triggerBuilder.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(60).repeatForever());
+Trigger trigger = triggerBuilder.build();
+</code></pre><p>TriggerBuilder的newTrigger去获取TriggerBuilder对象，设置name和group(不设置将会随机生成),调用startNow设置Trigger开始的时间为当前时间，通过withSchedule设置触发器的调度规则。最后通过build方法获取对象.<br>SimpleScheduleBuilder先不用管是什么，在后面会解释，理解为任务的触发条件就行，在这里设置60秒重复一次，重复次数无限.</p>
+<p>#####(3)为调度程序设置任务和触发器，开始调度:<br>JobDetail和Trigger实例化完成之后，设置调度程序，开始调度任务.由于Scheduler是interface，无法直接实例化，通过JavaDoc知道只能通过SchedulerFactory来获取，但是SchedulerFactory也是interface，最后找到了实现类StdSchedulerFactory,具体代码：</p>
+<pre><code>Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+scheduler.scheduleJob(jobDetail, trigger);
+scheduler.start();
+</code></pre><p>通过StdSchedulerFactory的getDefaultScheduler获取一个Scheduler，为Scheduler设置Job和Trigger，调用start开始调度.<br>还有一种获取Scheduler的方式，由于StdSchedulerFactory实现了SchedulerFactory的接口，故可以直接实例化StdSchedulerFactory，然后通过getScheduler获取Scheduler.</p>
+<pre><code>SchedulerFactory schedulerFactory = new StdSchedulerFactory();
+Scheduler scheduler = schedulerFactory.getScheduler();
+scheduler.scheduleJob(jobDetail, trigger);
+scheduler.start();
+</code></pre><p>#####(4)关闭任务调度：</p>
+<pre><code>scheduler.shutdown();
+</code></pre><p>###4.触发器的两种模式<br>任务调度有两种模式.一种是SimpleSchedule(简单模式)，这种只能实现简单的调度，比如多少秒重复触发<br>等简单的任务调度。另外一种是CronSchedule(表达式模式)，这种模式是基于Cron时间表达式.下面介绍一下这两种模式：</p>
+<p>#####(1)简单模式<br>在这种模式下只能根据提供的Api指定一些简单的时间重复调度，可以指定重复的次数，repeatForever代表无限重复，其他重复次数可以通过withRepeatCount(int triggerRepeatCount)来指定.</p>
+<pre><code>triggerBuilder.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(60).repeatForever());
+</code></pre><p>介绍一下常用的方法:<br><code>withIntervalInHours(int intervalInHours)</code>设置几小时重复一次<br><code>withIntervalInMinutes(int intervalInMinutes)</code>设置几分钟重复一次<br><code>withIntervalInSeconds(int intervalInSeconds)</code>设置几秒钟重复一次  </p>
+<p>#####(2)表达式模式<br>表达式模式就是可以通过时间表达式来具体指定在什么时间执行任务，可以用来时间比较复杂的时间调度,在这里设置了每小时51分的时候执行任务.</p>
+<pre><code>triggerBuilder.withSchedule(CronScheduleBuilder.cronSchedule(new CronExpression(&quot;0 51 * * * ? &quot;)));
+</code></pre><p>关于时间表达式的语法在这里就不重复介绍了，想了解的同学<a href="http://www.cnblogs.com/sunjie9606/archive/2012/03/15/2397626.html" target="_blank" rel="external">点这里</a>.我觉得也没必要去记，需要的时候可以借助这个工具去生成<a href="http://www.pdtools.net/tools/becron.jsp" target="_blank" rel="external">地址</a>，如果不能满足要求，再去找资料就行了.  </p>
+<p>完整代码：  </p>
+<p>######(1)简单模式</p>
+<pre><code>package com.jelly.quartz;
+
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.SimpleScheduleBuilder;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
+import org.quartz.impl.StdSchedulerFactory;
+
+public class TestJob1 {
+
+    public static void main(String[] args) {
+
+        try {
+            //实例化JobDetail
+            JobBuilder jobBuilder = JobBuilder.newJob(Job1.class);
+            jobBuilder.withIdentity(&quot;job1&quot;, &quot;group1&quot;);
+            JobDetail jobDetail = jobBuilder.build();
+            //实例化Trigger
+            TriggerBuilder&lt;Trigger&gt; triggerBuilder = TriggerBuilder.newTrigger();
+            triggerBuilder.withIdentity(&quot;tigger1&quot;, &quot;group1&quot;);
+            triggerBuilder.startNow();
+            triggerBuilder.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(60).repeatForever());
+            Trigger trigger = triggerBuilder.build();
+            //开始任务
+            Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+//            SchedulerFactory schedulerFactory = new StdSchedulerFactory();
+//            Scheduler scheduler = schedulerFactory.getScheduler();
+            scheduler.scheduleJob(jobDetail, trigger);
+            scheduler.start();
+
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+}
+</code></pre><p>######(2)表达式模式<br>    package com.jelly.quartz;</p>
+<pre><code>import org.quartz.CronExpression;
+import org.quartz.CronScheduleBuilder;
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.Scheduler;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
+import org.quartz.impl.StdSchedulerFactory;
+
+public class TestJob2 {
+
+    public static void main(String[] args) {
+
+        try {
+
+            JobBuilder jobBuilder = JobBuilder.newJob(Job1.class);
+            jobBuilder.withIdentity(&quot;job1&quot;, &quot;group1&quot;);
+            JobDetail jobDetail = jobBuilder.build();
+
+            TriggerBuilder&lt;Trigger&gt; triggerBuilder = TriggerBuilder.newTrigger();
+            triggerBuilder.withIdentity(&quot;tigger1&quot;, &quot;group1&quot;);
+            triggerBuilder.startNow();
+            triggerBuilder.withSchedule(CronScheduleBuilder.cronSchedule(new CronExpression(&quot;0 51 * * * ? &quot;)));
+            Trigger trigger = triggerBuilder.build();
+
+            Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+            scheduler.scheduleJob(jobDetail, trigger);
+            scheduler.start();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+}
+</code></pre><p>打印结果：</p>
+<p>######(1)简单模式</p>
+<pre><code>2016-12-05 06:01:45 ---- start Job
+2016-12-05 06:02:45 ---- start Job
+2016-12-05 06:03:45 ---- start Job
+</code></pre><p>######(2)表达式模式<br>    2016-12-05 06:51:00 —- start Job<br>    2016-12-05 07:51:00 —- start Job<br>    2016-12-05 08:51:00 —- start Job</p>
+<p>参考：<br><a href="http://www.quartz-scheduler.org/api/2.2.1/index.html" target="_blank" rel="external">JavaDoc</a><br><a href="http://www.quartz-scheduler.org/documentation/quartz-2.2.x/quick-start.html" target="_blank" rel="external">documentation</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/12/05/初探QuartZ/" class="archive-article-date">
+  	<time datetime="2016-12-05T10:17:59.000Z" itemprop="datePublished"><i class="icon-clock"></i>Dec 5 2016</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-初探DataBinding" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/03/初探DataBinding/">初探DataBinding</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天重新学习了一下Google原生库DataBinding的使用，也就是我们常说的MVVM。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/12/03/初探DataBinding/" class="archive-article-date">
+  	<time datetime="2016-12-03T08:55:03.000Z" itemprop="datePublished"><i class="icon-clock"></i>Dec 3 2016</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-最流行框架Retrofit+OkHttp+RxJava的搭建" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -597,7 +832,7 @@ compile &apos;com.squareup.picasso:picasso:+&apos;
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/矫情/" style="font-size: 10px;">矫情</a> <a href="/tags/移动开发-Android/" style="font-size: 10px;">移动开发-Android</a>
+    				<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/矫情/" style="font-size: 10px;">矫情</a> <a href="/tags/移动开发-Android/" style="font-size: 10px;">移动开发-Android</a>
     			</div>
     	</section>
     
