@@ -18,7 +18,7 @@
 1.下载Quartz下载地址点这里,下载了之后可以看到lib文件，我们在这里需要用到的jar文件,quartz—.jar是Quartz实现的jar，其他的3个jar的Quartz日志所需要的jar，下图这四个库是必须要使用的：">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-346735a01bfc1eb7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-e2fd76dfa62be633.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-12-06T01:30:28.199Z">
+<meta property="og:updated_time" content="2016-12-06T01:34:17.104Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="初探Quartz">
 <meta name="twitter:description" content="最近项目中用到了Quartz任务调度库，在这里简单介绍一下，最新版的Quartz的基本使用和语法。开始使用Quartz：   
@@ -190,7 +190,7 @@ Scheduler scheduler = schedulerFactory.getScheduler();
 scheduler.scheduleJob(jobDetail, trigger);
 scheduler.start();
 </code></pre><h5 id="4-关闭任务调度："><a href="#4-关闭任务调度：" class="headerlink" title="(4)关闭任务调度："></a>(4)关闭任务调度：</h5><pre><code>scheduler.shutdown();
-</code></pre><h3 id="4-触发器的两种模式"><a href="#4-触发器的两种模式" class="headerlink" title="4.触发器的两种模式"></a>4.触发器的两种模式</h3><p>任务调度有两种模式.一种是SimpleSchedule(简单模式)，这种只能实现简单的调度，比如多少秒重复触发<br>等简单的任务调度。另外一种是CronSchedule(表达式模式)，这种模式是基于Cron时间表达式.下面介绍一下这两种模式：</p>
+</code></pre><h3 id="4-触发器的两种模式"><a href="#4-触发器的两种模式" class="headerlink" title="4.触发器的两种模式"></a>4.触发器的两种模式</h3><p>任务调度有两种模式.一种是SimpleSchedule(简单模式)，这种只能实现简单的调度，比如多少秒重复触发等简单的任务调度。<br>另外一种是CronSchedule(表达式模式)，这种模式是基于Cron时间表达式.下面介绍一下这两种模式：</p>
 <h5 id="1-简单模式"><a href="#1-简单模式" class="headerlink" title="(1)简单模式"></a>(1)简单模式</h5><p>在这种模式下只能根据提供的Api指定一些简单的时间重复调度，可以指定重复的次数，repeatForever代表无限重复，其他重复次数可以通过withRepeatCount(int triggerRepeatCount)来指定.</p>
 <pre><code>triggerBuilder.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(60).repeatForever());
 </code></pre><p>介绍一下常用的方法:<br><code>withIntervalInHours(int intervalInHours)</code>设置几小时重复一次<br><code>withIntervalInMinutes(int intervalInMinutes)</code>设置几分钟重复一次<br><code>withIntervalInSeconds(int intervalInSeconds)</code>设置几秒钟重复一次  </p>
