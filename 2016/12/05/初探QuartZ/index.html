@@ -9,26 +9,26 @@
   <title>初探Quartz | JellyCai的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="最近项目中用到了QuartZ任务调度库，在这里简单介绍一下，最新版的QuartZ的基本使用和语法。开始使用QuartZ：   
-###1.下载QuartZ下载地址点这里,下载了之后可以看到lib文件，我们在这里需要用到的jar文件,quartz—.jar是QuartZ实现的jar，其他的3个jar的QuartZ日志所需要的jar，下图这四个库是必须要使用的：
+1.下载QuartZ下载地址点这里,下载了之后可以看到lib文件，我们在这里需要用到的jar文件,quartz—.jar是QuartZ实现的jar，其他的3个jar的QuartZ日志所需要的jar，下图这四个库是必须要使用的：
    
-###2.任务具体实现在Qua">
+###2.任务具体实现在QuartZ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="初探Quartz">
 <meta property="og:url" content="http://yoursite.com/2016/12/05/初探QuartZ/index.html">
 <meta property="og:site_name" content="JellyCai的博客">
 <meta property="og:description" content="最近项目中用到了QuartZ任务调度库，在这里简单介绍一下，最新版的QuartZ的基本使用和语法。开始使用QuartZ：   
-###1.下载QuartZ下载地址点这里,下载了之后可以看到lib文件，我们在这里需要用到的jar文件,quartz—.jar是QuartZ实现的jar，其他的3个jar的QuartZ日志所需要的jar，下图这四个库是必须要使用的：
+1.下载QuartZ下载地址点这里,下载了之后可以看到lib文件，我们在这里需要用到的jar文件,quartz—.jar是QuartZ实现的jar，其他的3个jar的QuartZ日志所需要的jar，下图这四个库是必须要使用的：
    
-###2.任务具体实现在Qua">
+###2.任务具体实现在QuartZ">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-346735a01bfc1eb7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-e2fd76dfa62be633.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-12-05T10:18:01.372Z">
+<meta property="og:updated_time" content="2016-12-06T01:25:29.998Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="初探Quartz">
 <meta name="twitter:description" content="最近项目中用到了QuartZ任务调度库，在这里简单介绍一下，最新版的QuartZ的基本使用和语法。开始使用QuartZ：   
-###1.下载QuartZ下载地址点这里,下载了之后可以看到lib文件，我们在这里需要用到的jar文件,quartz—.jar是QuartZ实现的jar，其他的3个jar的QuartZ日志所需要的jar，下图这四个库是必须要使用的：
+1.下载QuartZ下载地址点这里,下载了之后可以看到lib文件，我们在这里需要用到的jar文件,quartz—.jar是QuartZ实现的jar，其他的3个jar的QuartZ日志所需要的jar，下图这四个库是必须要使用的：
    
-###2.任务具体实现在Qua">
+###2.任务具体实现在QuartZ">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2098384-346735a01bfc1eb7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
   
@@ -155,7 +155,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>最近项目中用到了QuartZ任务调度库，在这里简单介绍一下，最新版的QuartZ的基本使用和语法。<br>开始使用QuartZ：   </p>
-<p>###1.下载QuartZ<br>下载地址<a href="http://www.quartz-scheduler.org/downloads/" target="_blank" rel="external">点这里</a>,下载了之后可以看到lib文件，我们在这里需要用到的jar文件,quartz—.jar是QuartZ实现的jar，其他的3个jar的QuartZ日志所需要的jar，下图这四个库是必须要使用的：</p>
+<h3 id="1-下载QuartZ"><a href="#1-下载QuartZ" class="headerlink" title="1.下载QuartZ"></a>1.下载QuartZ</h3><p>下载地址<a href="http://www.quartz-scheduler.org/downloads/" target="_blank" rel="external">点这里</a>,下载了之后可以看到lib文件，我们在这里需要用到的jar文件,quartz—.jar是QuartZ实现的jar，其他的3个jar的QuartZ日志所需要的jar，下图这四个库是必须要使用的：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/2098384-346735a01bfc1eb7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="需要的jar包.png">   </p>
 <p>###2.任务具体实现<br>在QuartZ中，所有的任务都必须实现Job接口，Job中只有一个<code>execute(JobExecutionContext context)</code>实现方法，我们的具体业务实现就得写在这个方法里面，这个方法将会在触发器满足调度条件是触发.<br>参数JobExecutionContext可以用来设置调用结果Result,通过put或者set方法.<br>代码示例：</p>
 <pre><code>package com.jelly.quartz;
