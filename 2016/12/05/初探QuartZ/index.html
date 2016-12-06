@@ -9,26 +9,20 @@
   <title>初探Quartz | JellyCai的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="最近项目中用到了QuartZ任务调度库，在这里简单介绍一下，最新版的QuartZ的基本使用和语法。开始使用QuartZ：   
-1.下载QuartZ下载地址点这里,下载了之后可以看到lib文件，我们在这里需要用到的jar文件,quartz—.jar是QuartZ实现的jar，其他的3个jar的QuartZ日志所需要的jar，下图这四个库是必须要使用的：
-   
-###2.任务具体实现在QuartZ">
+1.下载QuartZ下载地址点这里,下载了之后可以看到lib文件，我们在这里需要用到的jar文件,quartz—.jar是QuartZ实现的jar，其他的3个jar的QuartZ日志所需要的jar，下图这四个库是必须要使用的：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="初探Quartz">
 <meta property="og:url" content="http://yoursite.com/2016/12/05/初探QuartZ/index.html">
 <meta property="og:site_name" content="JellyCai的博客">
 <meta property="og:description" content="最近项目中用到了QuartZ任务调度库，在这里简单介绍一下，最新版的QuartZ的基本使用和语法。开始使用QuartZ：   
-1.下载QuartZ下载地址点这里,下载了之后可以看到lib文件，我们在这里需要用到的jar文件,quartz—.jar是QuartZ实现的jar，其他的3个jar的QuartZ日志所需要的jar，下图这四个库是必须要使用的：
-   
-###2.任务具体实现在QuartZ">
+1.下载QuartZ下载地址点这里,下载了之后可以看到lib文件，我们在这里需要用到的jar文件,quartz—.jar是QuartZ实现的jar，其他的3个jar的QuartZ日志所需要的jar，下图这四个库是必须要使用的：">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-346735a01bfc1eb7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2098384-e2fd76dfa62be633.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-12-06T01:25:29.998Z">
+<meta property="og:updated_time" content="2016-12-06T01:26:58.079Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="初探Quartz">
 <meta name="twitter:description" content="最近项目中用到了QuartZ任务调度库，在这里简单介绍一下，最新版的QuartZ的基本使用和语法。开始使用QuartZ：   
-1.下载QuartZ下载地址点这里,下载了之后可以看到lib文件，我们在这里需要用到的jar文件,quartz—.jar是QuartZ实现的jar，其他的3个jar的QuartZ日志所需要的jar，下图这四个库是必须要使用的：
-   
-###2.任务具体实现在QuartZ">
+1.下载QuartZ下载地址点这里,下载了之后可以看到lib文件，我们在这里需要用到的jar文件,quartz—.jar是QuartZ实现的jar，其他的3个jar的QuartZ日志所需要的jar，下图这四个库是必须要使用的：">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2098384-346735a01bfc1eb7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
   
@@ -156,8 +150,8 @@
       
         <p>最近项目中用到了QuartZ任务调度库，在这里简单介绍一下，最新版的QuartZ的基本使用和语法。<br>开始使用QuartZ：   </p>
 <h3 id="1-下载QuartZ"><a href="#1-下载QuartZ" class="headerlink" title="1.下载QuartZ"></a>1.下载QuartZ</h3><p>下载地址<a href="http://www.quartz-scheduler.org/downloads/" target="_blank" rel="external">点这里</a>,下载了之后可以看到lib文件，我们在这里需要用到的jar文件,quartz—.jar是QuartZ实现的jar，其他的3个jar的QuartZ日志所需要的jar，下图这四个库是必须要使用的：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2098384-346735a01bfc1eb7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="需要的jar包.png">   </p>
-<p>###2.任务具体实现<br>在QuartZ中，所有的任务都必须实现Job接口，Job中只有一个<code>execute(JobExecutionContext context)</code>实现方法，我们的具体业务实现就得写在这个方法里面，这个方法将会在触发器满足调度条件是触发.<br>参数JobExecutionContext可以用来设置调用结果Result,通过put或者set方法.<br>代码示例：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2098384-346735a01bfc1eb7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="需要的jar包.png"><br><a id="more"></a></p>
+<h3 id="2-任务具体实现"><a href="#2-任务具体实现" class="headerlink" title="2.任务具体实现"></a>2.任务具体实现</h3><p>在QuartZ中，所有的任务都必须实现Job接口，Job中只有一个<code>execute(JobExecutionContext context)</code>实现方法，我们的具体业务实现就得写在这个方法里面，这个方法将会在触发器满足调度条件是触发.<br>参数JobExecutionContext可以用来设置调用结果Result,通过put或者set方法.<br>代码示例：</p>
 <pre><code>package com.jelly.quartz;
 
 import org.quartz.Job;
@@ -173,20 +167,20 @@ public class Job1 implements Job{
 
 }
 </code></pre><p>JavaDoc截图：<br><img src="http://upload-images.jianshu.io/upload_images/2098384-e2fd76dfa62be633.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="JavaDoc截图.png">   </p>
-<p>###3.设置简单调度任务<br>设置调度任务一共分为四个步骤   </p>
-<p>#####(1)实例化JobDetail(调度任务)：<br>由于JobDetail是一个接口，所以必须通过JobBuilder实例化JobDetail，看一下具体代码：</p>
+<h3 id="3-设置简单调度任务"><a href="#3-设置简单调度任务" class="headerlink" title="3.设置简单调度任务"></a>3.设置简单调度任务</h3><p>设置调度任务一共分为四个步骤   </p>
+<h5 id="1-实例化JobDetail-调度任务-："><a href="#1-实例化JobDetail-调度任务-：" class="headerlink" title="(1)实例化JobDetail(调度任务)："></a>(1)实例化JobDetail(调度任务)：</h5><p>由于JobDetail是一个接口，所以必须通过JobBuilder实例化JobDetail，看一下具体代码：</p>
 <pre><code>JobBuilder jobBuilder = JobBuilder.newJob(Job1.class);
 jobBuilder.withIdentity(&quot;job1&quot;, &quot;group1&quot;);
 JobDetail jobDetail = jobBuilder.build();
 </code></pre><p>通过JobBuilder的newJob方法设置需要执行的Job任务类名，withIdentity是设置JobDetail的name和gruop（如果没有设置的话，将会随机生成name和group）最后通过build方法就可以实例化JobDetail.   </p>
-<p>#####(2)实例化Trigger(触发器):<br>Trigger也是个接口，只能通过TriggerBuilder去实例化，具体代码：</p>
+<h5 id="2-实例化Trigger-触发器"><a href="#2-实例化Trigger-触发器" class="headerlink" title="(2)实例化Trigger(触发器):"></a>(2)实例化Trigger(触发器):</h5><p>Trigger也是个接口，只能通过TriggerBuilder去实例化，具体代码：</p>
 <pre><code>TriggerBuilder&lt;Trigger&gt; triggerBuilder = TriggerBuilder.newTrigger();
 triggerBuilder.withIdentity(&quot;tigger1&quot;, &quot;group1&quot;);
 triggerBuilder.startNow();
 triggerBuilder.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(60).repeatForever());
 Trigger trigger = triggerBuilder.build();
 </code></pre><p>TriggerBuilder的newTrigger去获取TriggerBuilder对象，设置name和group(不设置将会随机生成),调用startNow设置Trigger开始的时间为当前时间，通过withSchedule设置触发器的调度规则。最后通过build方法获取对象.<br>SimpleScheduleBuilder先不用管是什么，在后面会解释，理解为任务的触发条件就行，在这里设置60秒重复一次，重复次数无限.</p>
-<p>#####(3)为调度程序设置任务和触发器，开始调度:<br>JobDetail和Trigger实例化完成之后，设置调度程序，开始调度任务.由于Scheduler是interface，无法直接实例化，通过JavaDoc知道只能通过SchedulerFactory来获取，但是SchedulerFactory也是interface，最后找到了实现类StdSchedulerFactory,具体代码：</p>
+<h5 id="3-为调度程序设置任务和触发器，开始调度"><a href="#3-为调度程序设置任务和触发器，开始调度" class="headerlink" title="(3)为调度程序设置任务和触发器，开始调度:"></a>(3)为调度程序设置任务和触发器，开始调度:</h5><p>JobDetail和Trigger实例化完成之后，设置调度程序，开始调度任务.由于Scheduler是interface，无法直接实例化，通过JavaDoc知道只能通过SchedulerFactory来获取，但是SchedulerFactory也是interface，最后找到了实现类StdSchedulerFactory,具体代码：</p>
 <pre><code>Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
 scheduler.scheduleJob(jobDetail, trigger);
 scheduler.start();
@@ -195,18 +189,16 @@ scheduler.start();
 Scheduler scheduler = schedulerFactory.getScheduler();
 scheduler.scheduleJob(jobDetail, trigger);
 scheduler.start();
-</code></pre><p>#####(4)关闭任务调度：</p>
-<pre><code>scheduler.shutdown();
-</code></pre><p>###4.触发器的两种模式<br>任务调度有两种模式.一种是SimpleSchedule(简单模式)，这种只能实现简单的调度，比如多少秒重复触发<br>等简单的任务调度。另外一种是CronSchedule(表达式模式)，这种模式是基于Cron时间表达式.下面介绍一下这两种模式：</p>
-<p>#####(1)简单模式<br>在这种模式下只能根据提供的Api指定一些简单的时间重复调度，可以指定重复的次数，repeatForever代表无限重复，其他重复次数可以通过withRepeatCount(int triggerRepeatCount)来指定.</p>
+</code></pre><h5 id="4-关闭任务调度："><a href="#4-关闭任务调度：" class="headerlink" title="(4)关闭任务调度："></a>(4)关闭任务调度：</h5><pre><code>scheduler.shutdown();
+</code></pre><h3 id="4-触发器的两种模式"><a href="#4-触发器的两种模式" class="headerlink" title="4.触发器的两种模式"></a>4.触发器的两种模式</h3><p>任务调度有两种模式.一种是SimpleSchedule(简单模式)，这种只能实现简单的调度，比如多少秒重复触发<br>等简单的任务调度。另外一种是CronSchedule(表达式模式)，这种模式是基于Cron时间表达式.下面介绍一下这两种模式：</p>
+<h5 id="1-简单模式"><a href="#1-简单模式" class="headerlink" title="(1)简单模式"></a>(1)简单模式</h5><p>在这种模式下只能根据提供的Api指定一些简单的时间重复调度，可以指定重复的次数，repeatForever代表无限重复，其他重复次数可以通过withRepeatCount(int triggerRepeatCount)来指定.</p>
 <pre><code>triggerBuilder.withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(60).repeatForever());
 </code></pre><p>介绍一下常用的方法:<br><code>withIntervalInHours(int intervalInHours)</code>设置几小时重复一次<br><code>withIntervalInMinutes(int intervalInMinutes)</code>设置几分钟重复一次<br><code>withIntervalInSeconds(int intervalInSeconds)</code>设置几秒钟重复一次  </p>
-<p>#####(2)表达式模式<br>表达式模式就是可以通过时间表达式来具体指定在什么时间执行任务，可以用来时间比较复杂的时间调度,在这里设置了每小时51分的时候执行任务.</p>
+<h5 id="2-表达式模式"><a href="#2-表达式模式" class="headerlink" title="(2)表达式模式"></a>(2)表达式模式</h5><p>表达式模式就是可以通过时间表达式来具体指定在什么时间执行任务，可以用来时间比较复杂的时间调度,在这里设置了每小时51分的时候执行任务.</p>
 <pre><code>triggerBuilder.withSchedule(CronScheduleBuilder.cronSchedule(new CronExpression(&quot;0 51 * * * ? &quot;)));
 </code></pre><p>关于时间表达式的语法在这里就不重复介绍了，想了解的同学<a href="http://www.cnblogs.com/sunjie9606/archive/2012/03/15/2397626.html" target="_blank" rel="external">点这里</a>.我觉得也没必要去记，需要的时候可以借助这个工具去生成<a href="http://www.pdtools.net/tools/becron.jsp" target="_blank" rel="external">地址</a>，如果不能满足要求，再去找资料就行了.  </p>
 <p>完整代码：  </p>
-<p>######(1)简单模式</p>
-<pre><code>package com.jelly.quartz;
+<h6 id="1-简单模式-1"><a href="#1-简单模式-1" class="headerlink" title="(1)简单模式"></a>(1)简单模式</h6><pre><code>package com.jelly.quartz;
 
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
@@ -246,8 +238,9 @@ public class TestJob1 {
     }
 
 }
-</code></pre><p>######(2)表达式模式<br>    package com.jelly.quartz;</p>
-<pre><code>import org.quartz.CronExpression;
+</code></pre><h6 id="2-表达式模式-1"><a href="#2-表达式模式-1" class="headerlink" title="(2)表达式模式"></a>(2)表达式模式</h6><pre><code>package com.jelly.quartz;
+
+import org.quartz.CronExpression;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
@@ -284,12 +277,13 @@ public class TestJob2 {
 
 }
 </code></pre><p>打印结果：</p>
-<p>######(1)简单模式</p>
-<pre><code>2016-12-05 06:01:45 ---- start Job
+<h6 id="1-简单模式-2"><a href="#1-简单模式-2" class="headerlink" title="(1)简单模式"></a>(1)简单模式</h6><pre><code>2016-12-05 06:01:45 ---- start Job
 2016-12-05 06:02:45 ---- start Job
 2016-12-05 06:03:45 ---- start Job
-</code></pre><p>######(2)表达式模式<br>    2016-12-05 06:51:00 —- start Job<br>    2016-12-05 07:51:00 —- start Job<br>    2016-12-05 08:51:00 —- start Job</p>
-<p>参考：<br><a href="http://www.quartz-scheduler.org/api/2.2.1/index.html" target="_blank" rel="external">JavaDoc</a><br><a href="http://www.quartz-scheduler.org/documentation/quartz-2.2.x/quick-start.html" target="_blank" rel="external">documentation</a></p>
+</code></pre><h6 id="2-表达式模式-2"><a href="#2-表达式模式-2" class="headerlink" title="(2)表达式模式"></a>(2)表达式模式</h6><pre><code>2016-12-05 06:51:00 ---- start Job
+2016-12-05 07:51:00 ---- start Job
+2016-12-05 08:51:00 ---- start Job
+</code></pre><p>参考：<br><a href="http://www.quartz-scheduler.org/api/2.2.1/index.html" target="_blank" rel="external">JavaDoc</a><br><a href="http://www.quartz-scheduler.org/documentation/quartz-2.2.x/quick-start.html" target="_blank" rel="external">documentation</a></p>
 
       
     </div>
